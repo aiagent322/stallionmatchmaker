@@ -279,6 +279,38 @@ footer a:hover{color:#fff}
 .prof-sim-station{font-size:0.7rem;color:var(--text-mid);margin-bottom:4px}
 .prof-sim-disc{font-size:0.7rem;color:var(--text-mid);font-style:italic}
 .prof-sim-fee{font-size:0.75rem;font-weight:700;color:var(--gold);margin-top:4px}
+
+@media(max-width:379px){
+  /* ── 320px Fallback ── narrowest phones (iPhone SE, budget Android) */
+
+  /* Header: prevent logo overflow at 320px */
+  .site-logo{font-size:0.78rem;letter-spacing:-0.5px}
+
+  /* Hero: tighter padding */
+  .hero{padding:22px 12px 20px}
+
+  /* Main content padding */
+  .main-wrap,.matchmaker-wrap{padding-left:10px;padding-right:10px}
+
+  /* Form card: tighter */
+  .form-card{padding:14px 12px}
+
+  /* Card body: tighter */
+  .card-body{padding:10px 12px}
+
+  /* Stats bar: compact */
+  .stats-bar{padding:10px 12px}
+  .stat-num{font-size:1.1rem}
+
+  /* Profile page */
+  #profile-page{padding:16px 10px 48px}
+
+  /* Results header */
+  .results-header{font-size:0.95rem}
+
+  /* Contact btn in header: shrink slightly */
+  .header-top a[href="/contact/"]{padding:5px 9px;font-size:.72rem}
+}
 </style>
 </head>
 <body>
