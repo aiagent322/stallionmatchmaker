@@ -358,7 +358,7 @@ footer a:hover{color:#fff}
 
 <div class="stats-bar">
   <div class="stats-inner">
-    <div class="stat-item"><div class="stat-num">153</div><div class="stat-label">Stallions</div></div>
+    <div class="stat-item"><div class="stat-num">157</div><div class="stat-label">Stallions</div></div>
     <div class="stat-item"><div class="stat-num">7</div><div class="stat-label">Stations</div></div>
     <div class="stat-item"><div class="stat-num">6</div><div class="stat-label">Disciplines</div></div>
     <div class="stat-item"><div class="stat-num">AI</div><div class="stat-label">Powered</div></div>
@@ -381,7 +381,7 @@ footer a:hover{color:#fff}
           <button type="button" class="station-chip" onclick="setStation(this,'Silver Spurs Equine')">Silver Spurs</button>
           <button type="button" class="station-chip" onclick="setStation(this,'Beau Galyean Stallion Services')">Beau Galyean</button>
           <button type="button" class="station-chip" onclick="setStation(this,'Solo Select Horses')">Solo Select</button>
-          <button type="button" class="station-chip" onclick="setStation(this,'XIT Ranch / Bosque Ranch Performance Horses')">XIT Ranch</button>
+          <button type="button" class="station-chip" onclick="setStation(this,'Cedar Ridge Stallion Station')">Cedar Ridge</button>
         </div>
       </div>
 
@@ -3601,6 +3601,86 @@ const STALLIONS = [
     enrollments: ["NCHA Super Stakes", "Breeders Invitational", "PCCHA", "Valley Equine Incentive"],
     final_score: 74.6,
     disc_strength: { "cutting": 90 }
+  },
+  {
+    id: "crs001",
+    name: "Black N Blu Boon",
+    slug: "black-n-blu-boon",
+    station: "Cedar Ridge Stallion Station",
+    source_url: "https://cedarridgestallions.com/black-n-blu-boon/",
+    tier: "value",
+    discipline: ["cutting", "cowHorse"],
+    stud_fee: 1400,
+    lifetime_earnings: 27035,
+    offspring_earnings: 0,
+    performance_summary: "LTE $27,035",
+    description: "Black N Blu Boon is a blue roan son of Once In A Blu Boon — the $16M+ sire of NCHA and NRCHA Open Futurity Champions — out of Lil Autumn Splendor by CD Olena. He combines two of the most influential bloodlines in cutting and cow horse breeding. His Once In A Blu Boon sire line has dominated both disciplines for over a decade and CD Olena daughters are among the most sought-after crosses in the industry. An exceptional value at $1,400 for breeders seeking elite cow horse genetics. Standing at Cedar Ridge Stallion Station for $1,400 in 2026.",
+    bloodlines: ["Once In A Blu Boon", "Peptoboonsmal", "Lil Autumn Splendor", "CD Olena"],
+    proven_crosses: [],
+    traits: ["cow sense", "athleticism", "handle"],
+    enrollments: ["Cedar Ridge Stallion Incentive"],
+    final_score: 36.8,
+    disc_strength: { "cutting": 56, "cowHorse": 54 }
+  },
+  {
+    id: "crs002",
+    name: "Excessive Rufness",
+    slug: "excessive-rufness",
+    station: "Cedar Ridge Stallion Station",
+    source_url: "https://cedarridgestallions.com/excessive-rufness/",
+    tier: "mid",
+    discipline: ["reining"],
+    stud_fee: 2350,
+    lifetime_earnings: 185312,
+    offspring_earnings: 0,
+    performance_summary: "LTE $185,312 \u00b7 2025 NRHA Derby Open Level 2 Champion \u00b7 2022 NRHA Derby Open Stakes Reserve Champion",
+    description: "Excessive Rufness is a son of Not Ruf At All out of Smokin Lady Gunner by Colonels Smoking Gun. A 2025 NRHA Derby Open Level 2 Champion and 2022 NRHA Derby Open Stakes Reserve Champion, he has proven himself at the highest levels of reining competition. His Not Ruf At All sire line traces to A Sparkling Vintage, and his Colonels Smoking Gun dam adds deep reining and cow horse bloodlines. Standing at Cedar Ridge Stallion Station for $2,350 in 2026.",
+    bloodlines: ["Not Ruf At All", "A Sparkling Vintage", "Smokin Lady Gunner", "Colonels Smoking Gun"],
+    proven_crosses: [],
+    traits: ["stop", "athleticism", "handle", "turn", "scope"],
+    enrollments: ["NRBC", "NRHA Sire & Dam", "NEBT", "NARS"],
+    final_score: 52.6,
+    disc_strength: { "reining": 72 }
+  },
+  {
+    id: "crs003",
+    name: "Gotta Twist It Up",
+    slug: "gotta-twist-it-up",
+    station: "Cedar Ridge Stallion Station",
+    source_url: "https://cedarridgestallions.com/gotta-twist-it-up/",
+    tier: "mid",
+    discipline: ["reining"],
+    stud_fee: 2600,
+    lifetime_earnings: 234341,
+    offspring_earnings: 0,
+    performance_summary: "LTE $234,341 \u00b7 2020 NRHA Derby Open Finalist \u00b7 2018 NRBC Derby Non-Pro Champion",
+    description: "Gotta Twist It Up is a son of Whiz out of Make It With A Twist by Dun It With A Twist. An NRHA Derby Open Finalist, 2018 NRBC Derby Non-Pro Champion, and 2019 Run For A Million 6th-place finisher, he has competed at every major reining event. His Whiz sire line is the foundation of modern reining bloodlines, and his Dun It With A Twist dam line adds proven non-pro and open performance genetics. Standing at Cedar Ridge Stallion Station for $2,600 in 2026.",
+    bloodlines: ["Whiz", "Topsail Whiz", "Make It With A Twist", "Dun It With A Twist"],
+    proven_crosses: [],
+    traits: ["stop", "handle", "athleticism", "turn", "scope"],
+    enrollments: ["NRBC", "NRHA Sire & Dam", "NEBT", "NARS", "IRHA"],
+    final_score: 55.4,
+    disc_strength: { "reining": 74 }
+  },
+  {
+    id: "crs004",
+    name: "Gunnabebigtime",
+    slug: "gunnabebigtime",
+    station: "Cedar Ridge Stallion Station",
+    source_url: "https://cedarridgestallions.com/gunnabebigtime/",
+    tier: "premium",
+    discipline: ["reining"],
+    stud_fee: 3000,
+    lifetime_earnings: 875255,
+    offspring_earnings: 0,
+    performance_summary: "LTE $875,255 \u00b7 2024 Run For A Million Champion \u00b7 2024 NRHA Level 4 Open Derby Finalist",
+    description: "Gunnabebigtime is a son of Gunnatrashya — the $18M+ offspring sire — out of Big Time Jazzy by Shine Big Time. The 2024 Run For A Million Champion and 2024 NRHA Level 4 Open Derby Finalist, he is one of the most accomplished active reining stallions in the country. He was also 2023 Run For A Million $100K Shootout Reserve Champion and 2023 NRHA Level 4 Open Derby Reserve Champion. With elite credentials on both sides of his pedigree, he is the top-tier reining option at Cedar Ridge. Standing at Cedar Ridge Stallion Station for $3,000 in 2026.",
+    bloodlines: ["Gunnatrashya", "Colonels Smoking Gun", "Big Time Jazzy", "Shine Big Time", "Shining Spark"],
+    proven_crosses: [],
+    traits: ["stop", "athleticism", "handle", "turn", "scope", "power"],
+    enrollments: ["NRBC", "NRHA Sire & Dam", "NEBT", "NARS", "The Invitational", "NRCHA Stallion Incentive"],
+    final_score: 68.2,
+    disc_strength: { "reining": 86 }
   }
 ];
 
