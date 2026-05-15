@@ -358,8 +358,8 @@ footer a:hover{color:#fff}
 
 <div class="stats-bar">
   <div class="stats-inner">
-    <div class="stat-item"><div class="stat-num">186</div><div class="stat-label">Stallions</div></div>
-    <div class="stat-item"><div class="stat-num">9</div><div class="stat-label">Stations</div></div>
+    <div class="stat-item"><div class="stat-num">190</div><div class="stat-label">Stallions</div></div>
+    <div class="stat-item"><div class="stat-num">10</div><div class="stat-label">Stations</div></div>
     <div class="stat-item"><div class="stat-num">6</div><div class="stat-label">Disciplines</div></div>
     <div class="stat-item"><div class="stat-num">AI</div><div class="stat-label">Powered</div></div>
   </div>
@@ -384,6 +384,7 @@ footer a:hover{color:#fff}
           <button type="button" class="station-chip" onclick="setStation(this,'Cedar Ridge Stallion Station')">Cedar Ridge</button>
           <button type="button" class="station-chip" onclick="setStation(this,'Tom McCutcheon Reining Horses')">Tom McCutcheon</button>
           <button type="button" class="station-chip" onclick="setStation(this,'SDP Buffalo Ranch')">SDP Buffalo Ranch</button>
+          <button type="button" class="station-chip" onclick="setStation(this,'Foals-R-Us Reproduction Center &amp; Stallion Station')">Foals-R-Us</button>
         </div>
       </div>
 
@@ -4263,6 +4264,86 @@ const STALLIONS = [
     enrollments: ["NCHA Super Stakes", "Breeders Invitational"],
     final_score: 44.8,
     disc_strength: { "cutting": 64, "cowHorse": 60 }
+  },
+  {
+    id: "fru001",
+    name: "Shining Spark",
+    slug: "shining-spark",
+    station: "Foals-R-Us Reproduction Center & Stallion Station",
+    source_url: "https://foals-r-us.com/shining-spark/",
+    tier: "premium",
+    discipline: ["reining", "cowHorse"],
+    stud_fee: 5000,
+    lifetime_earnings: 62674,
+    offspring_earnings: 10400000,
+    performance_summary: "Offspring $10.4M+ \u00b7 NRHA Hall of Fame \u00b7 NRCHA Hall of Fame \u00b7 1994 NRHA Derby Champion \u00b7 #1 All-Time Maternal Grandsire of Cow Horses",
+    description: "Shining Spark was a 1989 palomino son of Genuine Doc out of AQHA Superhorse and Hall of Fame member Diamonds Sparkle, owned by AQHA Hall of Fame horsewoman Carol Rose. The 1994 NRHA Derby Champion, NRHA Hall of Fame inductee (2011), and NRCHA Hall of Fame inductee (2022), he became the youngest NRHA Million Dollar Sire in 2002 and ultimately crossed $10.4M+ in total offspring earnings. He is the #1 all-time maternal grandsire of reined cow horses with broodmare produce earnings exceeding $27M. Shining Spark passed away December 2021. Available via ICSI only through Foals-R-Us at $5,000 — an elite opportunity to access one of the most influential sires in Western performance horse history.",
+    bloodlines: ["Genuine Doc", "Diamonds Sparkle", "Doc Bar", "Gay Bar King"],
+    proven_crosses: [],
+    traits: ["stop", "athleticism", "handle", "turn", "cow sense", "scope"],
+    enrollments: ["NRHA Sire & Dam", "NRBC", "NRCHA Cow Horse Incentive", "NARS", "100X Reining Stakes"],
+    final_score: 76.8,
+    disc_strength: { "reining": 92, "cowHorse": 82 }
+  },
+  {
+    id: "fru002",
+    name: "A Vintage Smoke",
+    slug: "a-vintage-smoke",
+    station: "Foals-R-Us Reproduction Center & Stallion Station",
+    source_url: "https://foals-r-us.com/a-vintage-smoke/",
+    tier: "premium",
+    discipline: ["reining"],
+    stud_fee: 4000,
+    lifetime_earnings: 612288,
+    offspring_earnings: 0,
+    performance_summary: "LTE $612,288+ \u00b7 2018 NRHA Open Futurity Champion \u00b7 2020 NRHA Open Derby Champion \u00b7 2021 NRBC Open Derby Co-Champion",
+    description: "A Vintage Smoke is a 2015 black son of A Sparkling Vintage — the NRHA $4M+ sire and Shining Spark son — out of Lady Smoke Peppy. The 2018 NRHA Open Futurity Champion, 2020 NRHA Open Derby Champion, and 2021 NRBC Open Derby Co-Champion, he is one of the most accomplished reining stallions of his generation with LTE $612,288+. He also won the 2018 High Roller Reining Classic Open Futurity Championship and was a 2019 Run For A Million finalist. Owned by Diane Mesmer. Standing at Foals-R-Us for $4,000 in 2026.",
+    bloodlines: ["A Sparkling Vintage", "Shining Spark", "Lady Smoke Peppy", "Peppy San Badger"],
+    proven_crosses: [],
+    traits: ["stop", "athleticism", "handle", "turn", "scope", "power"],
+    enrollments: ["NRHA Sire & Dam", "NRBC", "NARS", "100X Reining Stakes"],
+    final_score: 72.2,
+    disc_strength: { "reining": 90 }
+  },
+  {
+    id: "fru003",
+    name: "ARC Gunnabeabigstar",
+    slug: "arc-gunnabeabigstar",
+    station: "Foals-R-Us Reproduction Center & Stallion Station",
+    source_url: "https://foals-r-us.com/arc-gunnabeabigstar/",
+    tier: "premium",
+    discipline: ["reining"],
+    stud_fee: 2000,
+    lifetime_earnings: 324265,
+    offspring_earnings: 0,
+    performance_summary: "LTE $324,265 \u00b7 2014 NRHA Open Futurity Co-Champion \u00b7 2017 NRHA Open Derby Reserve Champion \u00b7 2018 WEG Team Gold Medalist",
+    description: "ARC Gunnabeabigstar is a 2011 palomino son of Gunnatrashya — the #1 all-time leading reining sire — out of Wimpys Little Chic by Wimpys Little Step. The 2014 NRHA Open Futurity Co-Champion, 2017 NRHA Open Derby Reserve Champion, 2017 AQHA Reserve World Champion Senior Reining, 2018 World Equestrian Games Team Gold Medalist, and 2018 NRBC Derby Open Reserve Champion. His Gunnatrashya and Wimpys Little Step bloodlines are the two dominant forces in modern reining genetics. Owned by Ranchos Los Palominos. Standing at Foals-R-Us for $2,000 in 2026.",
+    bloodlines: ["Gunnatrashya", "Colonels Smoking Gun", "Wimpys Little Chic", "Wimpys Little Step"],
+    proven_crosses: [],
+    traits: ["stop", "athleticism", "handle", "turn", "scope"],
+    enrollments: ["NRHA Sire & Dam", "NRBC", "NARS"],
+    final_score: 66.8,
+    disc_strength: { "reining": 84 }
+  },
+  {
+    id: "fru004",
+    name: "Electric Code",
+    slug: "electric-code",
+    station: "Foals-R-Us Reproduction Center & Stallion Station",
+    source_url: "https://foals-r-us.com/electric-code/",
+    tier: "mid",
+    discipline: ["reining"],
+    stud_fee: 1650,
+    lifetime_earnings: 215402,
+    offspring_earnings: 1000000,
+    performance_summary: "LTE $215,402 \u00b7 NRHA Million Dollar Sire \u00b7 2008 NRHA Futurity Intermediate Open Champion \u00b7 2010 Congress Open Reining Champion",
+    description: "Electric Code is a 2005 sorrel son of Jacs Electric Spark out of Hot Coded Candy. The 2008 NRHA Futurity Intermediate Open Champion and 3rd in the Open, 2010 All American Quarter Horse Congress Open Reining Champion, 2009 Gordyville Breeders Cup Open Champion, and 2010 NRHA Open Derby Finalist. An NRHA Million Dollar Sire, his Jacs Electric Spark bloodlines trace to some of the most proven reining genetics in the industry. Owned by Lorenzo Lotti, founder of Foals-R-Us. Standing at Foals-R-Us for $1,650 in 2026.",
+    bloodlines: ["Jacs Electric Spark", "Jac O Legs", "Hot Coded Candy", "Hot Coded"],
+    proven_crosses: [],
+    traits: ["stop", "athleticism", "handle", "turn"],
+    enrollments: ["NRHA Sire & Dam", "NRBC", "NARS"],
+    final_score: 56.4,
+    disc_strength: { "reining": 74 }
   }
 ];
 
