@@ -358,8 +358,8 @@ footer a:hover{color:#fff}
 
 <div class="stats-bar">
   <div class="stats-inner">
-    <div class="stat-item"><div class="stat-num">204</div><div class="stat-label">Stallions</div></div>
-    <div class="stat-item"><div class="stat-num">10</div><div class="stat-label">Stations</div></div>
+    <div class="stat-item"><div class="stat-num">206</div><div class="stat-label">Stallions</div></div>
+    <div class="stat-item"><div class="stat-num">11</div><div class="stat-label">Stations</div></div>
     <div class="stat-item"><div class="stat-num">6</div><div class="stat-label">Disciplines</div></div>
     <div class="stat-item"><div class="stat-num">AI</div><div class="stat-label">Powered</div></div>
   </div>
@@ -384,6 +384,7 @@ footer a:hover{color:#fff}
           <button type="button" class="station-chip" onclick="setStation(this,'Cedar Ridge Stallion Station')">Cedar Ridge</button>
           <button type="button" class="station-chip" onclick="setStation(this,'Tom McCutcheon Reining Horses')">Tom McCutcheon</button>
           <button type="button" class="station-chip" onclick="setStation(this,'SDP Buffalo Ranch')">SDP Buffalo Ranch</button>
+          <button type="button" class="station-chip" onclick="setStation(this,'EE Ranches')">EE Ranches</button>
           <button type="button" class="station-chip" onclick="setStation(this,'Foals-R-Us Reproduction Center &amp; Stallion Station')">Foals-R-Us</button>
         </div>
       </div>
@@ -4624,6 +4625,46 @@ const STALLIONS = [
     enrollments: ["NRHA Sire & Dam", "NRBC", "NARS"],
     final_score: 62.8,
     disc_strength: { "reining": 82 }
+  },
+  {
+    id: "eer001",
+    name: "Cat Ichi",
+    slug: "cat-ichi",
+    station: "EE Ranches",
+    source_url: "https://www.eeranches.com/cat-ichi",
+    tier: "premium",
+    discipline: ["cutting", "cowHorse"],
+    stud_fee: 3150,
+    lifetime_earnings: 306000,
+    offspring_earnings: 6000000,
+    performance_summary: "LTE $306,000+ \u00b7 Offspring $6M+ \u00b7 6 Million Dollar Sire \u00b7 2009 NCHA Freshman Sire of the Year \u00b7 First High Brow Cat son to reach $1M in first 24 months",
+    description: "Cat Ichi is a 2000 sorrel son of High Brow Cat out of Laney Doc, owned by EE Ranches. He earned $306,000+ in only 7 months of showing — the fastest-earning High Brow Cat son of all time — and was named the 2009 NCHA Freshman Sire of the Year, the first High Brow Cat son to become a Million Dollar Sire within the first 24 months of foals performing. Now a 6 Million Dollar Sire with top offspring including Spooked By A Cat ($360K), Saguaro Ichi ($294K, 2x NCHA Non-Pro World Champion), Ima Little Ichi ($282K), EE Ichi Bar ($264K), and The Animal ($246K, 2017 Open Futurity Reserve Champion). Onsite or frozen semen only. Standing at EE Ranches for $3,150 in 2026.",
+    bloodlines: ["High Brow Cat", "High Brow Hickory", "Laney Doc", "Doc Bar"],
+    proven_crosses: [],
+    traits: ["cow sense", "athleticism", "handle", "rate", "power"],
+    enrollments: ["NCHA Super Stakes", "Breeders Invitational", "PCCHA"],
+    final_score: 68.6,
+    disc_strength: { "cutting": 86, "cowHorse": 68 }
+  },
+  {
+    id: "eer002",
+    name: "Taggline",
+    slug: "taggline",
+    station: "EE Ranches",
+    source_url: "https://www.eeranches.com/resident-stallions",
+    tier: "mid",
+    discipline: ["cutting", "cowHorse"],
+    stud_fee: 1850,
+    lifetime_earnings: 56800,
+    offspring_earnings: 0,
+    performance_summary: "LTE $56,800 \u00b7 2019 NCHA Open Futurity Finalist \u00b7 2020 NCHA Open Derby 3rd \u00b7 Full brother to Hashtags ($485K LTE)",
+    description: "Taggline is a 2016 bay roan son of Metallic Cat — the NCHA $19M+ sire — out of Dual Rey Tag, a dam with offspring earnings exceeding $1.1M and full sister in blood to Hashtags ($485K LTE), Pound Sign, Tags Millionaire, and Taggin It. A 2019 NCHA Open Futurity finalist (8th place), 2020 NCHA Open Derby 3rd place, and 2023 Black Hills Stock Show RCH Open All-Around Champion, he earned 57 AQHA points across cutting, cow horse, reining, and heading with an Open ROM. His first foals are entering the show pen with promising early results. Owned by Teague Diversified. Standing at EE Ranches for $1,850 in 2026.",
+    bloodlines: ["Metallic Cat", "High Brow Cat", "Dual Rey Tag", "Dual Rey"],
+    proven_crosses: [],
+    traits: ["cow sense", "athleticism", "handle", "rate", "versatility"],
+    enrollments: ["NCHA Super Stakes", "Breeders Invitational", "NRCHA Stallion Stakes", "NRBC", "Gold Buckle Futurities"],
+    final_score: 54.2,
+    disc_strength: { "cutting": 72, "cowHorse": 64 }
   }
 ];
 
