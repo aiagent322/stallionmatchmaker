@@ -358,8 +358,8 @@ footer a:hover{color:#fff}
 
 <div class="stats-bar">
   <div class="stats-inner">
-    <div class="stat-item"><div class="stat-num">179</div><div class="stat-label">Stallions</div></div>
-    <div class="stat-item"><div class="stat-num">8</div><div class="stat-label">Stations</div></div>
+    <div class="stat-item"><div class="stat-num">186</div><div class="stat-label">Stallions</div></div>
+    <div class="stat-item"><div class="stat-num">9</div><div class="stat-label">Stations</div></div>
     <div class="stat-item"><div class="stat-num">6</div><div class="stat-label">Disciplines</div></div>
     <div class="stat-item"><div class="stat-num">AI</div><div class="stat-label">Powered</div></div>
   </div>
@@ -383,6 +383,7 @@ footer a:hover{color:#fff}
           <button type="button" class="station-chip" onclick="setStation(this,'Solo Select Horses')">Solo Select</button>
           <button type="button" class="station-chip" onclick="setStation(this,'Cedar Ridge Stallion Station')">Cedar Ridge</button>
           <button type="button" class="station-chip" onclick="setStation(this,'Tom McCutcheon Reining Horses')">Tom McCutcheon</button>
+          <button type="button" class="station-chip" onclick="setStation(this,'SDP Buffalo Ranch')">SDP Buffalo Ranch</button>
         </div>
       </div>
 
@@ -4122,6 +4123,146 @@ const STALLIONS = [
     enrollments: ["NRHA Sire & Dam", "NRBC", "NARS"],
     final_score: 67.8,
     disc_strength: { "reining": 86 }
+  },
+  {
+    id: "sdp001",
+    name: "Hydrive Cat",
+    slug: "hydrive-cat",
+    station: "SDP Buffalo Ranch",
+    source_url: "https://sdpbuffaloranch.com/horse/hydrive-cat/",
+    tier: "premium",
+    discipline: ["cutting", "cowHorse"],
+    stud_fee: 1500,
+    lifetime_earnings: 416709,
+    offspring_earnings: 6371652,
+    performance_summary: "LTE $416,709 \u00b7 Offspring $6.3M+ \u00b7 NCHA Open Futurity Reserve Champion \u00b7 NCHA Hall of Fame \u00b7 2012 Freshman Sire of the Year",
+    description: "Hydrive Cat was a 2003 sorrel son of High Brow Cat out of Ruby Tuesday DNA by Peppy San Badger. The NCHA Hall of Fame inductee earned $416,709 and was NCHA Open Futurity Reserve Champion and Champion Stallion in 10 of 21 major aged event finals. Hall of Fame trainer Clint Allen called him the best-looking High Brow Cat in the world. He was the 2012 Freshman Sire of the Year with offspring exceeding $6.3M worldwide. Hydrive Cat passed away in 2019. Frozen semen is available exclusively through SDP Buffalo Ranch at $1,500.",
+    bloodlines: ["High Brow Cat", "Ruby Tuesday DNA", "Peppy San Badger"],
+    proven_crosses: [],
+    traits: ["cow sense", "athleticism", "handle", "rate", "power"],
+    enrollments: ["NCHA Super Stakes", "Breeders Invitational", "NRCHA Stallion Stakes", "PCCHA Stallion Stakes"],
+    final_score: 70.4,
+    disc_strength: { "cutting": 88, "cowHorse": 72 }
+  },
+  {
+    id: "sdp002",
+    name: "Cats Moonshine",
+    slug: "cats-moonshine",
+    station: "SDP Buffalo Ranch",
+    source_url: "https://sdpbuffaloranch.com/horse/cats-moonshine/",
+    tier: "premium",
+    discipline: ["cutting"],
+    stud_fee: 2500,
+    lifetime_earnings: 150000,
+    offspring_earnings: 1889231,
+    performance_summary: "Offspring $1.8M+ \u00b7 Million Dollar Sire",
+    description: "Cats Moonshine is a son of High Brow Cat out of Genuine Moonshine by Genuine Doc. A Million Dollar Sire with offspring earnings exceeding $1.8M, his High Brow Cat sire line is the foundation of modern cutting horse breeding. Available domestically and internationally through SDP Buffalo Ranch at $2,500 in 2026.",
+    bloodlines: ["High Brow Cat", "Genuine Moonshine", "Genuine Doc", "Peppy San Badger"],
+    proven_crosses: [],
+    traits: ["cow sense", "athleticism", "handle", "rate"],
+    enrollments: ["NCHA Super Stakes", "Breeders Invitational"],
+    final_score: 62.4,
+    disc_strength: { "cutting": 80 }
+  },
+  {
+    id: "sdp003",
+    name: "Dualin Boon",
+    slug: "dualin-boon",
+    station: "SDP Buffalo Ranch",
+    source_url: "https://sdpbuffaloranch.com/horse/dualin-boon/",
+    tier: "premium",
+    discipline: ["cutting", "cowHorse"],
+    stud_fee: 0,
+    lifetime_earnings: 0,
+    offspring_earnings: 1007781,
+    performance_summary: "Offspring $1M+ \u00b7 Million Dollar Sire",
+    description: "Dualin Boon is a son of Dual Rey — the legendary $31M+ cutting sire — out of Boon San Acre. With offspring earnings exceeding $1M, he has crossed the Million Dollar Sire threshold and proven himself as a consistent producer of elite cutting horses. His Dual Rey and Peptoboonsmal bloodlines are foundational to multiple disciplines. Contact SDP Buffalo Ranch for 2026 breeding fee.",
+    bloodlines: ["Dual Rey", "Peptoboonsmal", "Boon San Acre", "Dual Pep"],
+    proven_crosses: [],
+    traits: ["cow sense", "athleticism", "handle", "rate", "versatility"],
+    enrollments: ["NCHA Super Stakes", "Breeders Invitational"],
+    final_score: 64.2,
+    disc_strength: { "cutting": 82, "cowHorse": 68 }
+  },
+  {
+    id: "sdp004",
+    name: "Jaymes Bond",
+    slug: "jaymes-bond",
+    station: "SDP Buffalo Ranch",
+    source_url: "https://sdpbuffaloranch.com/horse/jaymes-bond/",
+    tier: "mid",
+    discipline: ["cutting", "cowHorse"],
+    stud_fee: 2500,
+    lifetime_earnings: 280802,
+    offspring_earnings: 0,
+    performance_summary: "LTE $280,802 \u00b7 Son of Metallic Cat",
+    description: "Jaymes Bond is a son of Metallic Cat — the NCHA $19M+ sire and NRCHA All-Time Leading Sire — out of Shortys Jay Ray. With LTE $280,802, he brings proven arena credentials and the industry's most dominant bloodlines. Standing at SDP Buffalo Ranch for $2,500 in 2026.",
+    bloodlines: ["Metallic Cat", "High Brow Cat", "Shortys Jay Ray", "CD Royal"],
+    proven_crosses: [],
+    traits: ["cow sense", "athleticism", "handle", "rate", "turn"],
+    enrollments: ["NCHA Super Stakes", "Breeders Invitational", "NRCHA Stallion Stakes"],
+    final_score: 58.6,
+    disc_strength: { "cutting": 76, "cowHorse": 66 }
+  },
+  {
+    id: "sdp005",
+    name: "Hot Night Roll",
+    slug: "hot-night-roll",
+    station: "SDP Buffalo Ranch",
+    source_url: "https://sdpbuffaloranch.com/horse/hot-night-roll/",
+    tier: "mid",
+    discipline: ["cutting"],
+    stud_fee: 2000,
+    lifetime_earnings: 175946,
+    offspring_earnings: 0,
+    performance_summary: "LTE $175,946 \u00b7 Son of High Brow Cat",
+    description: "Hot Night Roll is a son of High Brow Cat out of Sofie Rey. With LTE $175,946, he has proven himself in the cutting pen and carries the dominant High Brow Cat genetics that have shaped the industry for decades. Available domestically and internationally through SDP Buffalo Ranch at $2,000 in 2026.",
+    bloodlines: ["High Brow Cat", "Sofie Rey", "Dual Rey", "Peppy San Badger"],
+    proven_crosses: [],
+    traits: ["cow sense", "athleticism", "handle", "rate"],
+    enrollments: ["NCHA Super Stakes", "Breeders Invitational"],
+    final_score: 52.8,
+    disc_strength: { "cutting": 72 }
+  },
+  {
+    id: "sdp006",
+    name: "CR Highlight",
+    slug: "cr-highlight",
+    station: "SDP Buffalo Ranch",
+    source_url: "https://sdpbuffaloranch.com/horse/cr-highlight/",
+    tier: "mid",
+    discipline: ["cutting"],
+    stud_fee: 2000,
+    lifetime_earnings: 0,
+    offspring_earnings: 299467,
+    performance_summary: "Offspring $299,467 \u00b7 Son of High Brow Cat",
+    description: "CR Highlight is a son of High Brow Cat out of Shortys Starlight. With offspring earnings approaching $300K, his foals are proving competitive in the cutting pen. His High Brow Cat sire line is the foundation of the NCHA cutting horse industry. Standing at SDP Buffalo Ranch for $2,000 in 2026.",
+    bloodlines: ["High Brow Cat", "Shortys Starlight", "CD Royal", "Peptoboonsmal"],
+    proven_crosses: [],
+    traits: ["cow sense", "athleticism", "handle"],
+    enrollments: ["NCHA Super Stakes"],
+    final_score: 46.6,
+    disc_strength: { "cutting": 68 }
+  },
+  {
+    id: "sdp007",
+    name: "Boonified",
+    slug: "boonified",
+    station: "SDP Buffalo Ranch",
+    source_url: "https://sdpbuffaloranch.com/horse/boonified/",
+    tier: "value",
+    discipline: ["cutting", "cowHorse"],
+    stud_fee: 2000,
+    lifetime_earnings: 104370,
+    offspring_earnings: 0,
+    performance_summary: "LTE $104,370 \u00b7 Son of Once In A Blu Boon",
+    description: "Boonified is a son of Once In A Blu Boon — the $16M+ sire of NCHA and NRCHA Open Futurity Champions — out of Lil Autumn Splendor by CD Olena. His Once In A Blu Boon and CD Olena bloodlines are among the most successful crosses in both cutting and cow horse breeding. Available domestically and internationally through SDP Buffalo Ranch at $2,000 in 2026.",
+    bloodlines: ["Once In A Blu Boon", "Peptoboonsmal", "Lil Autumn Splendor", "CD Olena"],
+    proven_crosses: [],
+    traits: ["cow sense", "athleticism", "handle", "versatility"],
+    enrollments: ["NCHA Super Stakes", "Breeders Invitational"],
+    final_score: 44.8,
+    disc_strength: { "cutting": 64, "cowHorse": 60 }
   }
 ];
 
