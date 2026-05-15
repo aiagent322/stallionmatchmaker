@@ -3598,7 +3598,7 @@ async function runMatch() {
       card.className = 'match-card';
       card.innerHTML = `
     <div class="card-rank-bar">
-      <span class="card-rank-label">#${{i+1}} Match &mdash; ${s.score}/100</span>
+      <span class="card-rank-label">#${i+1} Match &mdash; ${s.score}/100</span>
       <span class="card-tier-pill ${s.tier}">${s.tier==='premium'?'The Greats':s.tier==='mid'?'Main Roster':'Value'}</span>
     </div>
     <div class="card-body">
@@ -3646,7 +3646,7 @@ async function runMatch() {
         card2.className = 'match-card';
         card2.innerHTML = `
     <div class="card-rank-bar">
-      <span class="card-rank-label">#${{topPicks.length+i+1}} Match &mdash; ${s.score}/100</span>
+      <span class="card-rank-label">#${topPicks.length+i+1} Match &mdash; ${s.score}/100</span>
       <span class="card-tier-pill ${s.tier}">${s.tier==='premium'?'The Greats':s.tier==='mid'?'Main Roster':'Value'}</span>
     </div>
     <div class="card-body">
