@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>StallionMatchMaker.com — AI Stallion Matchmaker for Western Performance</title>
-<meta name="description" content="AI-powered stallion matchmaker for Western performance breeding. Get AI-ranked recommendations from 133 stallions across Valley Equine, 6666 Ranch, Oswood, and Silver Spurs — reining, cutting, cow horse, barrel racing, team roping, and ranch.">
+<meta name="description" content="AI-powered stallion matchmaker for Western performance breeding. Get AI-ranked recommendations from 215 stallions across Valley Equine, 6666 Ranch, Oswood, Silver Spurs, Weatherford Equine, and more — reining, cutting, cow horse, barrel racing, team roping, and ranch.">
 <link rel="canonical" href="https://stallionmatchmaker.com/">
 <meta property="og:title" content="StallionMatchMaker.com — AI Stallion Matchmaker">
-<meta property="og:description" content="Enter your mare profile and get AI-ranked stallion recommendations from 133 Western performance stallions across 4 premier stations. Free to use.">
+<meta property="og:description" content="Enter your mare profile and get AI-ranked stallion recommendations from 215 Western performance stallions across 12 premier stations. Free to use.">
 <meta name="theme-color" content="#0b3c5d">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -346,7 +346,7 @@ footer a:hover{color:#fff}
 <section class="hero">
   <div class="hero-inner">
     <h1>AI Stallion Matchmaker — Western Performance Breeding</h1>
-    <p class="hero-sub">Enter your mare's profile and get AI-ranked recommendations from 133 stallions across Valley Equine, 6666 Ranch, Oswood, and Silver Spurs — reining, cutting, cow horse, barrel racing, team roping, and ranch.</p>
+    <p class="hero-sub">Enter your mare's profile and get AI-ranked recommendations from 215 stallions across Valley Equine, 6666 Ranch, Oswood, Silver Spurs, Weatherford Equine, and more — reining, cutting, cow horse, barrel racing, team roping, and ranch.</p>
     <div class="hero-btns">
       <a href="#matchmaker" class="hero-btn">&#x1F50D; Find Matches</a>
       <a href="/stallions/" class="hero-btn">Browse Stallions</a>
@@ -358,7 +358,7 @@ footer a:hover{color:#fff}
 
 <div class="stats-bar">
   <div class="stats-inner">
-    <div class="stat-item"><div class="stat-num">206</div><div class="stat-label">Stallions</div></div>
+    <div class="stat-item"><div class="stat-num">215</div><div class="stat-label">Stallions</div></div>
     <div class="stat-item"><div class="stat-num">11</div><div class="stat-label">Stations</div></div>
     <div class="stat-item"><div class="stat-num">6</div><div class="stat-label">Disciplines</div></div>
     <div class="stat-item"><div class="stat-num">AI</div><div class="stat-label">Powered</div></div>
@@ -385,6 +385,7 @@ footer a:hover{color:#fff}
           <button type="button" class="station-chip" onclick="setStation(this,'Tom McCutcheon Reining Horses')">Tom McCutcheon</button>
           <button type="button" class="station-chip" onclick="setStation(this,'SDP Buffalo Ranch')">SDP Buffalo Ranch</button>
           <button type="button" class="station-chip" onclick="setStation(this,'EE Ranches')">EE Ranches</button>
+          <button type="button" class="station-chip" onclick="setStation(this,'Weatherford Equine')">Weatherford Equine</button>
           <button type="button" class="station-chip" onclick="setStation(this,'Foals-R-Us Reproduction Center &amp; Stallion Station')">Foals-R-Us</button>
         </div>
       </div>
@@ -4681,6 +4682,186 @@ const STALLIONS = [
     enrollments: ["NCHA Super Stakes", "Breeders Invitational", "NRCHA Stallion Stakes", "NRBC", "Gold Buckle Futurities"],
     final_score: 54.2,
     disc_strength: { "cutting": 72, "cowHorse": 64 }
+  },
+  {
+    id: "weq001",
+    name: "Catty Hawk",
+    slug: "catty-hawk",
+    station: "Weatherford Equine",
+    source_url: "https://weatherfordequine.com/catty-hawk/",
+    tier: "mid",
+    discipline: ["cutting", "cowHorse"],
+    stud_fee: 1500,
+    lifetime_earnings: 240297,
+    offspring_earnings: 4346000,
+    performance_summary: "LTE $240,297 \u00b7 Offspring $4.3M+",
+    description: "Catty Hawk is a 2005 sorrel son of High Brow Cat out of Scarlet Dance by Peppy San Badger, double registered AQHA/APHA. An NCHA Futurity Limited Non-Pro Champion and finalist across multiple premier events including the Abilene Spectacular, Augusta Futurity, and Breeders Invitational, he has sired offspring earning over $4.3 million. His pedigree stacks High Brow Cat on top of Peppy San Badger through Doc\u2019s Hickory and Smart Little Lena, producing athletic, cowy offspring with versatility across cutting and cow horse disciplines. Standing at Weatherford Equine for $1,500 in 2026.",
+    bloodlines: ["High Brow Cat", "Peppy San Badger", "Smart Little Lena", "Docs Hickory"],
+    proven_crosses: ["Peppy San Badger", "Smart Little Lena"],
+    traits: ["cow sense", "athleticism", "versatility"],
+    enrollments: ["Abilene Spectacular", "Augusta Stallion Stakes", "Breeders Invitational", "Gold Buckle Futurity", "NRCHA Stallion Stakes", "PCCHA", "NCHA Super Stakes", "Royal Crown Roping", "Riata Buckle"],
+    final_score: 62.5,
+    disc_strength: {"reining": 40, "cutting": 88, "cowHorse": 78, "barrelRacing": 25, "teamRoping": 45, "ranchRiding": 50}
+  },
+  {
+    id: "weq002",
+    name: "CD Diamond",
+    slug: "cd-diamond",
+    station: "Weatherford Equine",
+    source_url: "https://weatherfordequine.com/cd-diamond/",
+    tier: "premium",
+    discipline: ["cowHorse", "cutting"],
+    stud_fee: 4250,
+    lifetime_earnings: 153320,
+    offspring_earnings: 0,
+    performance_summary: "LTE $153,320+ \u00b7 2012 NRCHA Open Futurity Champion",
+    description: "CD Diamond is a 2009 palomino son of CD Olena out of Shiners Diamond Girl by Shining Spark. The 2012 NRCHA Open Futurity Champion and sire of the 2018 NRCHA Open Futurity Champion (SJR Diamond Mist), he has established the \u201cDiamond\u201d line as a premier cow horse dynasty through San Juan Ranch. His offspring are eligible for a $25,000 Open and $10,000 Non-Pro bonus at the NRCHA Fort Worth Futurity Finals through 2030. ICSI or fresh semen on farm only. Standing at Weatherford Equine for $4,250 in 2026.",
+    bloodlines: ["CD Olena", "Shining Spark", "Doc Olena", "Peppy San Badger"],
+    proven_crosses: ["Shining Spark", "High Brow Cat"],
+    traits: ["cow sense", "athleticism", "handle"],
+    enrollments: ["NRCHA Cow Horse Incentive", "NCHA Super Stakes", "Royal Crown Roping", "Gold Buckle Futurities Elite", "Riata Stallion Incentive"],
+    final_score: 65.8,
+    disc_strength: {"reining": 55, "cutting": 82, "cowHorse": 92, "barrelRacing": 18, "teamRoping": 48, "ranchRiding": 55}
+  },
+  {
+    id: "weq003",
+    name: "Copy Cat",
+    slug: "copy-cat",
+    station: "Weatherford Equine",
+    source_url: "https://weatherfordequine.com/copy-cat/",
+    tier: "mid",
+    discipline: ["cutting"],
+    stud_fee: 2000,
+    lifetime_earnings: 0,
+    offspring_earnings: 0,
+    performance_summary: "Genetic replica of High Brow Cat ($76M+ sire)",
+    description: "Copy Cat is a 2013 genetic replica of High Brow Cat \u2014 the NCHA\u2019s all-time leading sire with offspring earnings exceeding $76 million across five disciplines. Cloned by Dr. Katrin Hinrichs at Texas A&M using an oocyte from a maternal relative of High Brow Cat\u2019s dam Smart Little Kitty, he has been labeled the \u201cpurest of equine clones\u201d due to the unique integrity of the process. While AQHA does not register clones, NCHA does not require registration to compete. Frozen semen only. Standing at Weatherford Equine for $2,000 in 2026.",
+    bloodlines: ["High Brow Cat", "High Brow Hickory", "Smart Little Kitty", "Smart Little Lena", "Docs Hickory"],
+    proven_crosses: ["Smart Little Lena", "Peppy San Badger", "Dual Pep"],
+    traits: ["cow sense", "athleticism", "trainability"],
+    enrollments: ["Breeders Invitational", "NCHA Super Stakes", "PCCHA"],
+    final_score: 60.0,
+    disc_strength: {"reining": 45, "cutting": 95, "cowHorse": 75, "barrelRacing": 20, "teamRoping": 35, "ranchRiding": 40}
+  },
+  {
+    id: "weq004",
+    name: "Cowboys Cartel",
+    slug: "cowboys-cartel",
+    station: "Weatherford Equine",
+    source_url: "https://weatherfordequine.com/cowboys-cartel/",
+    tier: "mid",
+    discipline: ["barrelRacing"],
+    stud_fee: 1500,
+    lifetime_earnings: 235000,
+    offspring_earnings: 0,
+    performance_summary: "LTE $235,000+ \u00b7 SI 93",
+    description: "Cowboys Cartel is a 2007 brown son of Corona Cartel out of Dashing Folly by First Down Dash, standing 16 hands. With a Speed Index of 93 and lifetime earnings exceeding $235,000, he brings elite racing and barrel genetics from two of the top speed sire lines in the Quarter Horse industry. His sire Corona Cartel is a leading barrel and racing sire, and his dam combines First Down Dash speed on both sides. Frozen semen only. Standing at Weatherford Equine for $1,500 in 2026.",
+    bloodlines: ["Corona Cartel", "First Down Dash", "Holland Ease", "Dash For Cash"],
+    proven_crosses: ["First Down Dash", "Dash For Cash"],
+    traits: ["speed", "athleticism", "stamina"],
+    enrollments: [],
+    final_score: 52.3,
+    disc_strength: {"reining": 10, "cutting": 8, "cowHorse": 8, "barrelRacing": 92, "teamRoping": 15, "ranchRiding": 12}
+  },
+  {
+    id: "weq005",
+    name: "Dual R Smokin",
+    slug: "dual-r-smokin",
+    station: "Weatherford Equine",
+    source_url: "https://weatherfordequine.com/dual-r-smokin/",
+    tier: "mid",
+    discipline: ["cutting", "cowHorse"],
+    stud_fee: 2000,
+    lifetime_earnings: 227727,
+    offspring_earnings: 1537282,
+    performance_summary: "LTE $227,727 \u00b7 Offspring $1.5M+ \u00b7 NCHA Million Dollar Sire",
+    description: "Dual R Smokin is a 2005 sorrel son of Dual Rey out of Smokin Pepto by Peptoboonsmal \u2014 a cross that combines two of the most potent cutting bloodlines in the industry. An NCHA Million Dollar Sire with offspring earnings exceeding $1.5 million, he was the 2011 NCHA Summer Spectacular 5/6YO Non-Pro Champion with multiple major event finalist credits. He offers a $250 discount for High Brow Cat-bred mares, recognizing a proven nick. Standing at Weatherford Equine for $2,000 all-in in 2026.",
+    bloodlines: ["Dual Rey", "Peptoboonsmal", "Dual Pep", "Peppy San Badger"],
+    proven_crosses: ["High Brow Cat", "Smart Little Lena"],
+    traits: ["cow sense", "athleticism", "trainability"],
+    enrollments: ["NRCHA Stallion Stakes"],
+    final_score: 63.1,
+    disc_strength: {"reining": 35, "cutting": 90, "cowHorse": 82, "barrelRacing": 15, "teamRoping": 40, "ranchRiding": 48}
+  },
+  {
+    id: "weq006",
+    name: "Graceful Smart Cat",
+    slug: "graceful-smart-cat",
+    station: "Weatherford Equine",
+    source_url: "https://weatherfordequine.com/graceful-smart-cat/",
+    tier: "mid",
+    discipline: ["cowHorse", "reining"],
+    stud_fee: 2000,
+    lifetime_earnings: 110000,
+    offspring_earnings: 0,
+    performance_summary: "LTE $110,000+ \u00b7 Still Showing \u00b7 CRCHA Open Derby Champion",
+    description: "Graceful Smart Cat is a 2016 sorrel son of WR This Cats Smart \u2014 a sire with progeny earnings exceeding $19 million \u2014 out of Gracielights by CD Lights. The California RCHA Paso Robles Spring Classic Open Derby Champion and 3rd in the 2025 NRCHA North-Central Standings, he is still actively competing with over $110,000 in lifetime earnings. His oldest foals are two-year-olds of 2025. Enrolled in NRCHA, NRHA, PCCHA, SDRCHA, Colorado Classic, and Alberta RCH incentives. Standing at Weatherford Equine for $2,000 in 2026.",
+    bloodlines: ["WR This Cats Smart", "High Brow Cat", "CD Lights", "CD Olena"],
+    proven_crosses: [],
+    traits: ["cow sense", "athleticism", "handle", "versatility"],
+    enrollments: ["NRCHA Incentive", "NRHA Stallion Incentive", "PCCHA Stallion Incentive", "SDRCHA Stallion Incentive", "Colorado Classic", "Alberta Reined Cowhorse Incentive"],
+    final_score: 58.7,
+    disc_strength: {"reining": 65, "cutting": 68, "cowHorse": 82, "barrelRacing": 15, "teamRoping": 30, "ranchRiding": 55}
+  },
+  {
+    id: "weq007",
+    name: "Hankerelse",
+    slug: "hankerelse",
+    station: "Weatherford Equine",
+    source_url: "https://weatherfordequine.com/hankerelse/",
+    tier: "value",
+    discipline: ["barrelRacing"],
+    stud_fee: 1200,
+    lifetime_earnings: 0,
+    offspring_earnings: 0,
+    performance_summary: "Barrel futurity & WPRA earner bloodlines \u00b7 First foals 2021",
+    description: "Hankerelse is a 2013 buckskin son of Letta Hank Do It \u2014 a champagne palomino barrel futurity, derby, and WPRA earner by Snazzy Hank SI 104 \u2014 out of Rosa Runner by Runnerelse, standing 15.2 hands. Known for his dead-quiet temperament until asked to run, he is ridden in a bozo side-pull and run barefoot with exceptionally hard, well-cupped feet. His first foals were born spring 2021, and his sire line traces through proven barrel and speed genetics. Standing at Weatherford Equine for $1,200 in 2026.",
+    bloodlines: ["Letta Hank Do It", "Snazzy Hank", "Runnerelse"],
+    proven_crosses: [],
+    traits: ["speed", "temperament", "bone", "feet"],
+    enrollments: [],
+    final_score: 42.5,
+    disc_strength: {"reining": 10, "cutting": 5, "cowHorse": 5, "barrelRacing": 78, "teamRoping": 12, "ranchRiding": 20}
+  },
+  {
+    id: "weq008",
+    name: "HiCaliber Cat",
+    slug: "hicaliber-cat",
+    station: "Weatherford Equine",
+    source_url: "https://weatherfordequine.com/hicaliber-cat/",
+    tier: "mid",
+    discipline: ["cowHorse", "cutting"],
+    stud_fee: 1825,
+    lifetime_earnings: 162000,
+    offspring_earnings: 0,
+    performance_summary: "LTE $162,000+ \u00b7 Still Showing \u00b7 2024 Wild Rag Open Derby Champion",
+    description: "HiCaliber Cat is a 2019 bay son of High Brow Cat out of SFR Magic Doll by Abrakadabracre, standing 14.1 hands. Still actively competing, he was the 2024 Wild Rag Cattle Classic Open Derby Champion with a 669.5 composite score, 2024 NRCHA Western Open Derby 3rd, and 2024 NRCHA Stallion Stakes Open Finals 5th. His combination of High Brow Cat genetics and proven show record make him a compelling young sire. Standing at Weatherford Equine for $1,825 in 2026.",
+    bloodlines: ["High Brow Cat", "High Brow Hickory", "Smart Little Kitty", "Abrakadabracre"],
+    proven_crosses: [],
+    traits: ["cow sense", "athleticism", "handle", "heart"],
+    enrollments: ["NCHA Stallion Foal Incentive", "NRCHA Stallion Incentive", "North American Reining Stakes"],
+    final_score: 61.4,
+    disc_strength: {"reining": 48, "cutting": 78, "cowHorse": 88, "barrelRacing": 12, "teamRoping": 30, "ranchRiding": 42}
+  },
+  {
+    id: "weq009",
+    name: "Huerfano River Blue",
+    slug: "huerfano-river-blue",
+    station: "Weatherford Equine",
+    source_url: "https://weatherfordequine.com/huerfano-river-blue/",
+    tier: "value",
+    discipline: ["cowHorse", "ranchRiding", "teamRoping"],
+    stud_fee: 1200,
+    lifetime_earnings: 4006,
+    offspring_earnings: 15600,
+    performance_summary: "QData #1 Ranch Horse Sire 2021 & 2022 \u00b7 Versatile working cow horse",
+    description: "Huerfano River Blue is a 2010 black son of Mecom Blue out of Molly Bob Acre by Bob Acre Doc, double registered AQHA/APHA, standing 14.3 hands. An orphan foal from the Wichita Ranch Bar Nothing program, he proved himself on working cattle ranches for six years before launching a successful second career in the NRCHA arena at age 11. Named QData Top Leading Sire of Ranch Horses in both 2021 and 2022, his lineage traces to legends including Haidas Little Pep, Freckles Playboy, Peppy San Badger, and the famous mare Royal Blue Boon. Standing at Weatherford Equine for $1,200 in 2026.",
+    bloodlines: ["Mecom Blue", "Bob Acre Doc", "Haidas Little Pep", "Royal Blue Boon", "Peppy San Badger"],
+    proven_crosses: [],
+    traits: ["cow sense", "versatility", "temperament", "bone", "stamina"],
+    enrollments: ["NRCHA", "IRHA", "ASHA", "NSHA", "TQHA Roping Incentive"],
+    final_score: 48.2,
+    disc_strength: {"reining": 25, "cutting": 45, "cowHorse": 68, "barrelRacing": 10, "teamRoping": 55, "ranchRiding": 82}
   }
 ];
 
