@@ -88,6 +88,31 @@ footer{background:var(--primary);color:rgba(255,255,255,0.6);text-align:center;p
 footer a{color:rgba(255,255,255,0.75)}
 footer a:hover{color:#fff}
 
+
+.csv-wrap{margin:0 0 40px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.csv-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:12px 16px;background:var(--bg-alt);border-bottom:1px solid var(--border)}
+.csv-title{font-size:0.82rem;font-weight:700;color:var(--primary)}
+.csv-controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+#csv-search{padding:6px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:0.78rem;width:180px}
+#csv-search:focus{outline:none;border-color:var(--accent)}
+.csv-dl-btn{padding:6px 12px;background:var(--primary);color:#fff;border:none;border-radius:var(--radius);font-size:0.75rem;font-weight:700;cursor:pointer}
+.csv-dl-btn:hover{background:var(--primary-light)}
+.csv-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+#csv-table{width:100%;border-collapse:collapse;font-size:0.78rem}
+#csv-table th{padding:8px 12px;text-align:left;background:var(--primary);color:#fff;white-space:nowrap;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
+#csv-table th.sortable{cursor:pointer;user-select:none}
+#csv-table th.sortable:hover{background:var(--primary-light)}
+.sort-icon{opacity:0.55;font-size:0.65rem;margin-left:3px}
+#csv-table td{padding:7px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+#csv-table tr:last-child td{border-bottom:none}
+#csv-table tr:hover td{background:var(--bg-alt)}
+.csv-name{font-weight:600;color:var(--primary);text-decoration:none}
+.csv-name:hover{color:var(--secondary);text-decoration:underline}
+.csv-fee{font-weight:800;color:var(--gold)}
+.csv-tier{font-size:0.65rem;font-weight:700;padding:2px 7px;border-radius:8px;white-space:nowrap}
+.csv-tier.elite{background:#fef3c7;color:#92400e}
+.csv-tier.proven{background:#dbeafe;color:#1e40af}
+.csv-tier.rising{background:#d1fae5;color:#065f46}
 </style>
 </head>
 <body>
@@ -517,7 +542,82 @@ footer a:hover{color:#fff}
 </article>
 </div>
 </div>
-  <div class="cta-box">
+  
+<div class="csv-wrap">
+  <div class="csv-header">
+    <span class="csv-title">📋 2026 Stallion Roster — Quick Reference</span>
+    <div class="csv-controls">
+      <input type="text" id="csv-search" placeholder="Search…" oninput="filterTable()">
+      <button onclick="downloadCSV()" class="csv-dl-btn">⬇ Download CSV</button>
+    </div>
+  </div>
+  <div class="csv-table-wrap">
+    <table id="csv-table">
+      <thead><tr>
+        <th class="sortable" onclick="sortTable('name',this)">Stallion <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('tier',this)">Tier <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('disc',this)">Discipline <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('feeInt',this)">Stud Fee <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('lteInt',this)">LTE <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('offspringInt',this)">Offspring <span class="sort-icon">⇅</span></th>
+      </tr></thead>
+      <tbody id="csv-tbody"></tbody>
+    </table>
+  </div>
+</div>
+<script>
+const CSV_DATA=[
+  {name:"A Sparkling Vintage",tier:"\u2605 Elite",disc:"Reining, Cow Horse",fee:"$6,000",feeInt:6000,lte:"$54,516",lteInt:54516,offspring:"$4.7M",offspringInt:4654000,url:"https://www.silverspursequine.com/a-sparkling-vintage"},
+  {name:"Big Chex To Cash",tier:"Proven",disc:"Reining",fee:"$750",feeInt:750,lte:"$220,826",lteInt:220826,offspring:"$1.4M",offspringInt:1370000,url:"https://www.silverspursequine.com/big-chex-to-cash-1"},
+  {name:"Boomernic",tier:"Proven",disc:"Reining, Cow Horse",fee:"$1,000",feeInt:1000,lte:"$113,328",lteInt:113328,offspring:"$2.0M",offspringInt:2000000,url:"https://www.silverspursequine.com/boomernic-1"},
+  {name:"Conquistador Whiz",tier:"Proven",disc:"Reining",fee:"$3,000",feeInt:3000,lte:"$100,000",lteInt:100000,offspring:"$2.8M",offspringInt:2772000,url:"https://www.silverspursequine.com/conquistador-whiz-1"},
+  {name:"Spooks Gotta Gun",tier:"\u2605 Elite",disc:"Reining, Ranch Riding",fee:"$6,500",feeInt:6500,lte:"$81,637",lteInt:81637,offspring:"$4.1M",offspringInt:4101569,url:"https://www.silverspursequine.com/spooks-gotta-gun"},
+  {name:"Trashadeous",tier:"Proven",disc:"Reining",fee:"$3,000",feeInt:3000,lte:"$138,599",lteInt:138599,offspring:"\u2014",offspringInt:0,url:"https://www.silverspursequine.com/trashadeous"},
+  {name:"Wimpys Little Step",tier:"\u2605 Elite",disc:"Reining",fee:"$6,500",feeInt:6500,lte:"$185,757",lteInt:185757,offspring:"$15.2M",offspringInt:15165000,url:"https://www.silverspursequine.com/wimpys-little-step"},
+  {name:"HF Mobster",tier:"Proven",disc:"Reining",fee:"$2,500",feeInt:2500,lte:"$123,626",lteInt:123626,offspring:"$1.7M",offspringInt:1717000,url:"https://www.silverspursequine.com/hf-mobster"},
+  {name:"Shiners Voodoo Dr",tier:"\u2605 Elite",disc:"Reining, Cow Horse",fee:"$6,000",feeInt:6000,lte:"$87,098",lteInt:87098,offspring:"$8.1M",offspringInt:8065000,url:"https://www.silverspursequine.com/shiners-voodoo-dr"},
+  {name:"Tinker With Guns",tier:"Proven",disc:"Reining",fee:"$2,000",feeInt:2000,lte:"$346,366",lteInt:346366,offspring:"$1.5M",offspringInt:1521000,url:"https://www.silverspursequine.com/tinker-with-guns"},
+  {name:"Wimpyneedsacocktail",tier:"Proven",disc:"Reining",fee:"$2,000",feeInt:2000,lte:"$285,508",lteInt:285508,offspring:"\u2014",offspringInt:0,url:"https://www.silverspursequine.com/wimpyneedsacocktail"},
+  {name:"Platinum Vintage",tier:"Proven",disc:"Reining",fee:"$2,500",feeInt:2500,lte:"$390,828",lteInt:390828,offspring:"\u2014",offspringInt:0,url:"https://www.silverspursequine.com/platinum-vintage"},
+  {name:"Xtra New Pal Voodoo",tier:"Proven",disc:"Reining",fee:"$1,250",feeInt:1250,lte:"$109,894",lteInt:109894,offspring:"\u2014",offspringInt:0,url:"https://www.silverspursequine.com/xtranewpalvoodoo"},
+  {name:"Ifwhizswereguns",tier:"\u2605 Elite",disc:"Reining, Cow Horse",fee:"$1,500",feeInt:1500,lte:"$118,578",lteInt:118578,offspring:"$9.5M",offspringInt:9500000,url:"https://www.silverspursequine.com/ifwhizswereguns"},
+  {name:"Custom Cash Advance",tier:"Proven",disc:"Reining",fee:"$3,000",feeInt:3000,lte:"$228,608",lteInt:228608,offspring:"\u2014",offspringInt:0,url:"https://www.silverspursequine.com/custom-cash-advance-1"},
+  {name:"Smart Shiners Spook",tier:"Proven",disc:"Reining, Cow Horse",fee:"$500",feeInt:500,lte:"$44,359",lteInt:44359,offspring:"\u2014",offspringInt:0,url:"https://www.silverspursequine.com/smart-shiners-spook"},
+  {name:"Nic It In The Bud",tier:"Proven",disc:"Reining, Cow Horse",fee:"$3,500",feeInt:3500,lte:"$148,165",lteInt:148165,offspring:"\u2014",offspringInt:0,url:"https://www.silverspursequine.com/nic-it-in-the-bud-1"},
+  {name:"Einsteins Revolution",tier:"Proven",disc:"Reining",fee:"$2,500",feeInt:2500,lte:"$355,500",lteInt:355500,offspring:"$2.0M",offspringInt:2004006,url:"https://www.silverspursequine.com/einsteins-revolution"},
+  {name:"Mister Montana Nic",tier:"Proven",disc:"Reining, Cow Horse",fee:"$2,500",feeInt:2500,lte:"$183,354",lteInt:183354,offspring:"\u2014",offspringInt:0,url:"https://www.silverspursequine.com/mister-montana-nic-1"},
+  {name:"Chic Dreamin",tier:"Value",disc:"Reining",fee:"$2,000",feeInt:2000,lte:"$265,420",lteInt:265420,offspring:"$250,421",offspringInt:250421,url:"https://www.silverspursequine.com/chicdreamin"},
+  {name:"Electric Wind",tier:"Proven",disc:"Reining",fee:"$1,000",feeInt:1000,lte:"\u2014",lteInt:0,offspring:"\u2014",offspringInt:0,url:"https://www.silverspursequine.com/electricwind"},
+  {name:"Pale Face Dunnit",tier:"\u2605 Elite",disc:"Reining",fee:"$2,000",feeInt:2000,lte:"$145,901",lteInt:145901,offspring:"$4.0M",offspringInt:4000000,url:"https://www.silverspursequine.com/pale-face-dunnit"},
+  {name:"Catatomic",tier:"Proven",disc:"Cutting, Cow Horse",fee:"$2,000",feeInt:2000,lte:"\u2014",lteInt:0,offspring:"\u2014",offspringInt:0,url:"https://www.silverspursequine.com/catatomic-1"},
+  {name:"My Customized Whiz",tier:"Proven",disc:"Reining",fee:"$500",feeInt:500,lte:"\u2014",lteInt:0,offspring:"\u2014",offspringInt:0,url:"https://www.silverspursequine.com/mycustomizedwhiz"},
+  {name:"Docs Soula",tier:"Proven",disc:"Cutting, Cow Horse",fee:"$1,500",feeInt:1500,lte:"\u2014",lteInt:0,offspring:"\u2014",offspringInt:0,url:"https://www.silverspursequine.com/docs-soula-1"},
+  {name:"SG Frozen Enterprize",tier:"Proven",disc:"Reining",fee:"$1,038",feeInt:1038,lte:"$274,083",lteInt:274083,offspring:"$952,875",offspringInt:952875,url:"https://www.silverspursequine.com/sg-frozen-enterprize"}
+];
+let _sk='feeInt',_sa=false,_ft='';
+function renderTable(){
+  let rows=CSV_DATA.filter(r=>!_ft||r.name.toLowerCase().includes(_ft)||r.disc.toLowerCase().includes(_ft)||r.tier.toLowerCase().includes(_ft));
+  rows.sort((a,b)=>{let av=a[_sk],bv=b[_sk];if(typeof av==='string'){av=av.toLowerCase();bv=bv.toLowerCase();}return _sa?(av>bv?1:av<bv?-1:0):(av<bv?1:av>bv?-1:0);});
+  document.getElementById('csv-tbody').innerHTML=rows.map(r=>`<tr><td><a href="${r.url}" target="_blank" rel="noopener" class="csv-name">${r.name}</a></td><td><span class="csv-tier ${r.tier==='★ Elite'?'elite':r.tier==='Proven'?'proven':'rising'}">${r.tier}</span></td><td>${r.disc}</td><td class="csv-fee">${r.fee}</td><td>${r.lte}</td><td>${r.offspring}</td></tr>`).join('');
+}
+function sortTable(key,el){
+  if(_sk===key)_sa=!_sa;else{_sk=key;_sa=(key==='name'||key==='tier'||key==='disc');}
+  document.querySelectorAll('#csv-table th.sortable').forEach(th=>th.style.background='');
+  el.style.background='var(--secondary)';
+  renderTable();
+}
+function filterTable(){_ft=document.getElementById('csv-search').value.toLowerCase();renderTable();}
+function downloadCSV(){
+  const hdr=['Stallion','Tier','Discipline','2026 Stud Fee','LTE','Offspring Earnings'];
+  const rows=CSV_DATA.map(r=>[r.name,r.tier,r.disc,r.fee,r.lte,r.offspring].map(v=>'"'+v+'"').join(','));
+  const blob=new Blob([hdr.join(',')+'
+'+rows.join('
+')],{type:'text/csv'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='silver-spurs-equine-2026.csv';a.click();
+}
+renderTable();
+</script>
+<div class="cta-box">
     <h2>Not Sure Which Stallion Fits Your Mare?</h2>
     <p>Enter your mare's discipline, bloodlines, and breeding goals to get AI-ranked recommendations from all 224 stallions across 12 stations.</p>
     <a href="/" class="cta-btn">🔍 Run the AI Matchmaker →</a>
