@@ -5424,7 +5424,7 @@ TRAITS.forEach(t => {
 function scoreStallion(s, mareDisc, mBlood, mTraits, mareSire) {
   let discPts = 0, bloodPts = 0, traitPts = 0, sirePts = 0;
 
-  // ── FIX 1: Discipline scoring using disc_strength (40 pts) ──────────────────
+  // ── Discipline scoring using disc_strength (50 pts — primary driver) ─────────
   // Map user-facing discipline values to disc_strength keys
   const DISC_KEY_MAP = {
     'reining':           'reining',
@@ -5436,17 +5436,17 @@ function scoreStallion(s, mareDisc, mBlood, mTraits, mareSire) {
   };
   const dsKey = DISC_KEY_MAP[mareDisc] || null;
   if (dsKey && s.disc_strength && s.disc_strength[dsKey] != null) {
-    // Scale 0-100 disc_strength score to 0-40 pts
-    discPts = Math.round((s.disc_strength[dsKey] / 100) * 40);
+    // Scale 0-100 disc_strength score to 0-50 pts
+    discPts = Math.round((s.disc_strength[dsKey] / 100) * 50);
   } else {
-    // Fallback: binary discipline match = 20 pts, no match = 0
+    // Fallback: binary discipline match = 25 pts, no match = 0
     const sDisc = (s.discipline||[]).map(d=>d.toLowerCase());
     if (mareDisc && sDisc.some(d => d === dsKey || d === mareDisc.toLowerCase())) {
-      discPts = 20;
+      discPts = 25;
     }
   }
 
-  // ── FIX 2: Sire-line compatibility (10 pts bonus) ────────────────────────────
+  // ── Sire-line compatibility (10 pts bonus) ────────────────────────────────────
   if (mareSire) {
     const sireNorm = mareSire.trim().toLowerCase();
     // Use proven_crosses array directly — exact normalized sire names
@@ -5465,7 +5465,7 @@ function scoreStallion(s, mareDisc, mBlood, mTraits, mareSire) {
     }
   }
 
-  // ── Bloodline compatibility (25 pts) ─────────────────────────────────────────
+  // ── Bloodline compatibility (20 pts) ──────────────────────────────────────────
   const sBlood = (s.bloodlines||[]).map(b=>b.toLowerCase());
   let compat = 0, conflict = 0;
   sBlood.forEach(sb => {
@@ -5478,14 +5478,14 @@ function scoreStallion(s, mareDisc, mBlood, mTraits, mareSire) {
     });
   });
   compat = Math.min(compat, sBlood.length + mBlood.length);
-  if (sBlood.length === 0 || mBlood.length === 0) bloodPts = 12;
-  else bloodPts = Math.max(0, Math.min(25, compat * 7 - conflict * 8));
+  if (sBlood.length === 0 || mBlood.length === 0) bloodPts = 10;
+  else bloodPts = Math.max(0, Math.min(20, compat * 6 - conflict * 7));
 
-  // ── Traits (25 pts) ──────────────────────────────────────────────────────────
+  // ── Traits (20 pts) ───────────────────────────────────────────────────────────
   const sTraits = (s.traits||[]).map(t=>t.toLowerCase());
   const overlap = sTraits.filter(t => mTraits.has(t)).length;
-  if (mTraits.size > 0) traitPts = Math.min(25, Math.round((overlap / mTraits.size) * 25));
-  else traitPts = 12; // neutral if no traits selected
+  if (mTraits.size > 0) traitPts = Math.min(20, Math.round((overlap / mTraits.size) * 20));
+  else traitPts = 10; // neutral if no traits selected
 
   return Math.min(100, discPts + sirePts + bloodPts + traitPts);
 }
