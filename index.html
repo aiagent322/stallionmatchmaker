@@ -5556,7 +5556,7 @@ function scoreStallion(s, mareDisc, mBlood, mTraits, mareSire, maxFee) {
   // Only scores when user set a budget. Rewards value within budget without
   // overriding discipline fit. Over-budget stallions already filtered out.
   let feePts = 0;
-  if (maxFee && s.stud_fee != null) {
+  if (maxFee && s.stud_fee != null && s.stud_fee > 0) {
     const ratio = s.stud_fee / maxFee;
     if      (ratio <= 0.50) feePts = 5; // well under budget — great value fit
     else if (ratio <= 0.70) feePts = 4;
