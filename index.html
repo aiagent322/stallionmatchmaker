@@ -5482,10 +5482,18 @@ function scoreStallion(s, mareDisc, mBlood, mTraits, mareSire) {
   else bloodPts = Math.max(0, Math.min(20, compat * 6 - conflict * 7));
 
   // ── Traits (20 pts) ───────────────────────────────────────────────────────────
+  // 0 pts if user didn't select traits — no free gift, just don't score it
+  // 5 pts if stallion has no trait data — unknown quantity, not penalized
+  // 0–20 pts based on overlap when both sides have data
   const sTraits = (s.traits||[]).map(t=>t.toLowerCase());
   const overlap = sTraits.filter(t => mTraits.has(t)).length;
-  if (mTraits.size > 0) traitPts = Math.min(20, Math.round((overlap / mTraits.size) * 20));
-  else traitPts = 10; // neutral if no traits selected
+  if (mTraits.size === 0) {
+    traitPts = 0;  // user didn't specify — not scored
+  } else if (sTraits.length === 0) {
+    traitPts = 5;  // stallion trait data missing — small neutral
+  } else {
+    traitPts = Math.min(20, Math.round((overlap / mTraits.size) * 20));
+  }
 
   return Math.min(100, discPts + sirePts + bloodPts + traitPts);
 }
