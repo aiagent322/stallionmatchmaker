@@ -5478,7 +5478,7 @@ TRAITS.forEach(t => {
 });
 
 // ── DETERMINISTIC SCORER ─────────────────────────────────────────────────────
-function scoreStallion(s, mareDisc, mBlood, mTraits, mareSire) {
+function scoreStallion(s, mareDisc, mBlood, mTraits, mareSire, maxFee) {
   let discPts = 0, bloodPts = 0, traitPts = 0, sirePts = 0;
 
   // ── Discipline scoring using disc_strength (50 pts — primary driver) ─────────
@@ -5552,7 +5552,21 @@ function scoreStallion(s, mareDisc, mBlood, mTraits, mareSire) {
     traitPts = Math.min(20, Math.round((overlap / mTraits.size) * 20));
   }
 
-  return Math.min(100, discPts + sirePts + bloodPts + traitPts);
+  // ── Fee fit (0–5 pts bonus) ───────────────────────────────────────────────
+  // Only scores when user set a budget. Rewards value within budget without
+  // overriding discipline fit. Over-budget stallions already filtered out.
+  let feePts = 0;
+  if (maxFee && s.stud_fee != null) {
+    const ratio = s.stud_fee / maxFee;
+    if      (ratio <= 0.50) feePts = 5; // well under budget — great value fit
+    else if (ratio <= 0.70) feePts = 4;
+    else if (ratio <= 0.85) feePts = 3;
+    else                    feePts = 2; // near the limit — still within budget
+  } else if (maxFee && s.stud_fee == null) {
+    feePts = 3; // fee unknown — neutral
+  }
+
+  return Math.min(100, discPts + sirePts + bloodPts + traitPts + feePts);
 }
 
 let activeStation = 'all';
@@ -5778,7 +5792,7 @@ async function runMatch() {
     const scored = STALLIONS
       .filter(s => !maxFee || s.stud_fee === null || s.stud_fee <= maxFee)
       .filter(s => activeStation === 'all' || s.station === activeStation)
-      .map(s => ({ ...s, score: scoreStallion(s, mareDisc, mBlood, selectedTraits, mareSire) }))
+      .map(s => ({ ...s, score: scoreStallion(s, mareDisc, mBlood, selectedTraits, mareSire, maxFee) }))
                              .sort((a,b) => b.score - a.score);
 
     // TOP ROW — best per tier
