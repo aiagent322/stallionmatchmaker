@@ -88,6 +88,31 @@ footer{background:var(--primary);color:rgba(255,255,255,0.6);text-align:center;p
 footer a{color:rgba(255,255,255,0.75)}
 footer a:hover{color:#fff}
 
+
+.csv-wrap{margin:0 0 40px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.csv-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:12px 16px;background:var(--bg-alt);border-bottom:1px solid var(--border)}
+.csv-title{font-size:0.82rem;font-weight:700;color:var(--primary)}
+.csv-controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+#csv-search{padding:6px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:0.78rem;width:180px}
+#csv-search:focus{outline:none;border-color:var(--accent)}
+.csv-dl-btn{padding:6px 12px;background:var(--primary);color:#fff;border:none;border-radius:var(--radius);font-size:0.75rem;font-weight:700;cursor:pointer}
+.csv-dl-btn:hover{background:var(--primary-light)}
+.csv-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+#csv-table{width:100%;border-collapse:collapse;font-size:0.78rem}
+#csv-table th{padding:8px 12px;text-align:left;background:var(--primary);color:#fff;white-space:nowrap;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
+#csv-table th.sortable{cursor:pointer;user-select:none}
+#csv-table th.sortable:hover{background:var(--primary-light)}
+.sort-icon{opacity:0.55;font-size:0.65rem;margin-left:3px}
+#csv-table td{padding:7px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+#csv-table tr:last-child td{border-bottom:none}
+#csv-table tr:hover td{background:var(--bg-alt)}
+.csv-name{font-weight:600;color:var(--primary);text-decoration:none}
+.csv-name:hover{color:var(--secondary);text-decoration:underline}
+.csv-fee{font-weight:800;color:var(--gold)}
+.csv-tier{font-size:0.65rem;font-weight:700;padding:2px 7px;border-radius:8px;white-space:nowrap}
+.csv-tier.elite{background:#fef3c7;color:#92400e}
+.csv-tier.proven{background:#dbeafe;color:#1e40af}
+.csv-tier.rising{background:#d1fae5;color:#065f46}
 </style>
 </head>
 <body>
@@ -868,7 +893,92 @@ footer a:hover{color:#fff}
   </div>
   <div class="sc-footer"><a href="https://valleyequinerepro.com/stallions/" target="_blank" rel="noopener" class="sc-btn gold">View at Valley Equine ↗</a><a href="/" class="sc-btn outline">Find My Match →</a></div>
 </article></div>
-  <div class="cta-box">
+  
+<div class="csv-wrap">
+  <div class="csv-header">
+    <span class="csv-title">📋 2026 Stallion Roster — Quick Reference</span>
+    <div class="csv-controls">
+      <input type="text" id="csv-search" placeholder="Search…" oninput="filterTable()">
+      <button onclick="downloadCSV()" class="csv-dl-btn">⬇ Download CSV</button>
+    </div>
+  </div>
+  <div class="csv-table-wrap">
+    <table id="csv-table">
+      <thead><tr>
+        <th class="sortable" onclick="sortTable('name',this)">Stallion <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('tier',this)">Tier <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('disc',this)">Discipline <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('feeInt',this)">Stud Fee <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('lteInt',this)">LTE <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('offspringInt',this)">Offspring <span class="sort-icon">⇅</span></th>
+      </tr></thead>
+      <tbody id="csv-tbody"></tbody>
+    </table>
+  </div>
+</div>
+<script>
+const CSV_DATA=[
+  {name:"Metallic Cat",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$10,500",feeInt:10500,lte:"$637,711",lteInt:637711,offspring:"$83.6M",offspringInt:83631404,url:"https://valleyequinerepro.com/stallions/metallic-cat/"},
+  {name:"Hashtags",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$3,500",feeInt:3500,lte:"$485,293",lteInt:485293,offspring:"$5.3M",offspringInt:5327661,url:"https://valleyequinerepro.com/stallions/hashtags/"},
+  {name:"Dual Reyish",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$5,500",feeInt:5500,lte:"$452,687",lteInt:452687,offspring:"$2.5M",offspringInt:2517756,url:"https://valleyequinerepro.com/stallions/dual-reyish/"},
+  {name:"Dual Rey",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$5,625",feeInt:5625,lte:"$105,038",lteInt:105038,offspring:"$57.9M",offspringInt:57893606,url:"https://valleyequinerepro.com/stallions/dual-rey/"},
+  {name:"High Brow Cat",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$10,500",feeInt:10500,lte:"$110,784",lteInt:110784,offspring:"$97.0M",offspringInt:97000000,url:"https://valleyequinerepro.com/stallions/high-brow-cat/"},
+  {name:"Smart Chic Olena",tier:"\u2605 Elite",disc:"Reining, Cutting, Cow Horse",fee:"$2,500",feeInt:2500,lte:"$167,472",lteInt:167472,offspring:"$15.4M",offspringInt:15449532,url:"https://valleyequinerepro.com/stallions/smart-chic-olena/"},
+  {name:"Metallic Rebel",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$10,000",feeInt:10000,lte:"$438,315",lteInt:438315,offspring:"$16.6M",offspringInt:16638605,url:"https://valleyequinerepro.com/stallions/metallic-rebel/"},
+  {name:"Hottish",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$5,500",feeInt:5500,lte:"$301,843",lteInt:301843,offspring:"$23.8M",offspringInt:23842560,url:"https://valleyequinerepro.com/stallions/hottish/"},
+  {name:"Dual Smart Rey",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$8,300",feeInt:8300,lte:"$330,436",lteInt:330436,offspring:"$16.0M",offspringInt:16000000,url:"https://valleyequinerepro.com/stallions/dual-smart-rey/"},
+  {name:"Rollz Royce",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$7,500",feeInt:7500,lte:"$354,032",lteInt:354032,offspring:"$5.0M",offspringInt:4979851,url:"https://valleyequinerepro.com/stallions/rollz-royce/"},
+  {name:"Cool N Hot",tier:"\u2605 Elite",disc:"Cutting",fee:"$3,000",feeInt:3000,lte:"$435,069",lteInt:435069,offspring:"$526,820",offspringInt:526820,url:"https://valleyequinerepro.com/stallions/cool-n-hot/"},
+  {name:"Spots Hot",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$5,000",feeInt:5000,lte:"$527,682",lteInt:527682,offspring:"$9.4M",offspringInt:9419211,url:"https://valleyequinerepro.com/stallions/spots-hot/"},
+  {name:"Dont Stopp Believin",tier:"\u2605 Elite",disc:"Cutting",fee:"$3,500",feeInt:3500,lte:"$463,962",lteInt:463962,offspring:"$5.9M",offspringInt:5941502,url:"https://valleyequinerepro.com/stallions/dont-stopp-believin/"},
+  {name:"NRR Cat King Cole",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$4,500",feeInt:4500,lte:"$230,918",lteInt:230918,offspring:"$2.2M",offspringInt:2205165,url:"https://valleyequinerepro.com/stallions/nrr-cat-king-cole/"},
+  {name:"CR Gotcha Covered",tier:"Proven",disc:"Cutting, Cow Horse",fee:"$4,500",feeInt:4500,lte:"$302,756",lteInt:302756,offspring:"$2.2M",offspringInt:2224713,url:"https://valleyequinerepro.com/stallions/cr-gotcha-covered/"},
+  {name:"Badboonarising",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$3,300",feeInt:3300,lte:"$367,101",lteInt:367101,offspring:"$3.8M",offspringInt:3811012,url:"https://valleyequinerepro.com/stallions/badboonarising/"},
+  {name:"Hottish Metal",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$5,500",feeInt:5500,lte:"$497,370",lteInt:497370,offspring:"$526,820",offspringInt:526820,url:"https://valleyequinerepro.com/stallions/hottish-metal/"},
+  {name:"Areybe",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$3,500",feeInt:3500,lte:"$160,250",lteInt:160250,offspring:"\u2014",offspringInt:0,url:"https://valleyequinerepro.com/stallions/areybe/"},
+  {name:"Armour",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$3,500",feeInt:3500,lte:"$379,775",lteInt:379775,offspring:"\u2014",offspringInt:0,url:"https://valleyequinerepro.com/stallions/armour/"},
+  {name:"Bama Jelly",tier:"\u2605 Elite",disc:"Cutting",fee:"$3,500",feeInt:3500,lte:"$441,762",lteInt:441762,offspring:"\u2014",offspringInt:0,url:"https://valleyequinerepro.com/stallions/bama-jelly/"},
+  {name:"Catolena Cashin In",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$4,500",feeInt:4500,lte:"$436,150",lteInt:436150,offspring:"\u2014",offspringInt:0,url:"https://valleyequinerepro.com/stallions/catolena-cashin-in/"},
+  {name:"Check Yer Metal",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$3,750",feeInt:3750,lte:"$449,312",lteInt:449312,offspring:"\u2014",offspringInt:0,url:"https://valleyequinerepro.com/stallions/check-yer-metal/"},
+  {name:"Countin Hot Checks",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$6,500",feeInt:6500,lte:"$296,780",lteInt:296780,offspring:"\u2014",offspringInt:0,url:"https://valleyequinerepro.com/stallions/countin-hot-checks/"},
+  {name:"Dual Pep",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$2,500",feeInt:2500,lte:"$313,192",lteInt:313192,offspring:"$26.2M",offspringInt:26186416,url:"https://valleyequinerepro.com/stallions/dual-pep/"},
+  {name:"Hott Abra",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$4,500",feeInt:4500,lte:"$84,347",lteInt:84347,offspring:"\u2014",offspringInt:0,url:"https://valleyequinerepro.com/stallions/hott-abra/"},
+  {name:"Kinky Bootz",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$2,500",feeInt:2500,lte:"$182,221",lteInt:182221,offspring:"\u2014",offspringInt:0,url:"https://valleyequinerepro.com/stallions/kinky-bootz/"},
+  {name:"Lone Woolf",tier:"\u2605 Elite",disc:"Cutting",fee:"$5,000",feeInt:5000,lte:"$668,310",lteInt:668310,offspring:"\u2014",offspringInt:0,url:"https://valleyequinerepro.com/stallions/lone-woolf/"},
+  {name:"Magicality",tier:"\u2605 Elite",disc:"Reining, Cutting, Cow Horse",fee:"$2,000",feeInt:2000,lte:"$173,771",lteInt:173771,offspring:"$212,000",offspringInt:212000,url:"https://valleyequinerepro.com/stallions/magicality/"},
+  {name:"Metallic Rey Mink",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$4,000",feeInt:4000,lte:"$205,224",lteInt:205224,offspring:"$1.2M",offspringInt:1173000,url:"https://valleyequinerepro.com/stallions/metallic-rey-mink/"},
+  {name:"Moms Lil Rebel",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$3,500",feeInt:3500,lte:"$422,270",lteInt:422270,offspring:"\u2014",offspringInt:0,url:"https://valleyequinerepro.com/stallions/moms-lil-rebel/"},
+  {name:"My Pistols Hott",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$3,500",feeInt:3500,lte:"$254,011",lteInt:254011,offspring:"\u2014",offspringInt:0,url:"https://valleyequinerepro.com/stallions/my-pistols-hott/"},
+  {name:"One Fine Vintage",tier:"\u2605 Elite",disc:"Cow Horse, Team Roping",fee:"$2,000",feeInt:2000,lte:"$135,187",lteInt:135187,offspring:"$792,879",offspringInt:792879,url:"https://valleyequinerepro.com/stallions/one-fine-vintage/"},
+  {name:"Phil N Dangerous",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$5,125",feeInt:5125,lte:"$575,979",lteInt:575979,offspring:"\u2014",offspringInt:0,url:"https://valleyequinerepro.com/stallions/phil-n-dangerous/"},
+  {name:"Purrn Likeasmoothcat",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$2,000",feeInt:2000,lte:"$148,089",lteInt:148089,offspring:"\u2014",offspringInt:0,url:"https://valleyequinerepro.com/stallions/purrn-likeasmoothcat/"},
+  {name:"Roasting",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$4,500",feeInt:4500,lte:"$234,971",lteInt:234971,offspring:"\u2014",offspringInt:0,url:"https://valleyequinerepro.com/stallions/roasting/"},
+  {name:"Sniperr",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$3,500",feeInt:3500,lte:"$216,536",lteInt:216536,offspring:"\u2014",offspringInt:0,url:"https://valleyequinerepro.com/stallions/sniperr/"},
+  {name:"Storyteler",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$5,000",feeInt:5000,lte:"$383,249",lteInt:383249,offspring:"\u2014",offspringInt:0,url:"https://valleyequinerepro.com/stallions/storyteler/"},
+  {name:"Sugarr Daddy",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$4,000",feeInt:4000,lte:"$463,279",lteInt:463279,offspring:"\u2014",offspringInt:0,url:"https://valleyequinerepro.com/stallions/sugarr-daddy/"},
+  {name:"Swing Wide",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$3,000",feeInt:3000,lte:"$353,399",lteInt:353399,offspring:"\u2014",offspringInt:0,url:"https://valleyequinerepro.com/stallions/swing-wide/"},
+  {name:"Whiski Sauer",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$2,000",feeInt:2000,lte:"$59,888",lteInt:59888,offspring:"\u2014",offspringInt:0,url:"https://valleyequinerepro.com/stallions/whiski-sauer/"},
+  {name:"Zigzagg",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$3,500",feeInt:3500,lte:"$194,514",lteInt:194514,offspring:"\u2014",offspringInt:0,url:"https://valleyequinerepro.com/stallions/zigzagg/"},
+  {name:"Blazin Jetolena",tier:"\u2605 Elite",disc:"Barrel Racing",fee:"$7,500",feeInt:7500,lte:"$95,201",lteInt:95201,offspring:"$10.4M",offspringInt:10415538,url:"https://valleyequinerepro.com/stallions/blazin-jetolena/"},
+  {name:"BR Golden Leader",tier:"Proven",disc:"Barrel Racing, Team Roping",fee:"$3,000",feeInt:3000,lte:"$58,000",lteInt:58000,offspring:"\u2014",offspringInt:0,url:"https://valleyequinerepro.com/stallions/br-golden-leader/"},
+  {name:"CSR Dual Glo",tier:"\u2605 Elite",disc:"Cow Horse, Team Roping, Ranch Riding",fee:"$1,500",feeInt:1500,lte:"\u2014",lteInt:0,offspring:"\u2014",offspringInt:0,url:"https://valleyequinerepro.com/stallions/csr-dual-glo/"},
+  {name:"Dollys Streaknbadger",tier:"\u2605 Elite",disc:"Barrel Racing",fee:"$2,500",feeInt:2500,lte:"$205,788",lteInt:205788,offspring:"\u2014",offspringInt:0,url:"https://valleyequinerepro.com/stallions/dollys-streaknbadger/"},
+  {name:"Eddie Stinson",tier:"\u2605 Elite",disc:"Barrel Racing, Team Roping",fee:"$6,000",feeInt:6000,lte:"$200,016",lteInt:200016,offspring:"$9.9M",offspringInt:9940964,url:"https://valleyequinerepro.com/stallions/eddie-stinson/"},
+  {name:"Flaming Fire Water",tier:"Proven",disc:"Barrel Racing",fee:"$2,500",feeInt:2500,lte:"$14,315",lteInt:14315,offspring:"$769,696",offspringInt:769696,url:"https://valleyequinerepro.com/stallions/flaming-fire-water/"},
+  {name:"Sevens Star Glo",tier:"Proven",disc:"Team Roping, Ranch Riding",fee:"$1,500",feeInt:1500,lte:"$144,834",lteInt:144834,offspring:"\u2014",offspringInt:0,url:"https://valleyequinerepro.com/stallions/sevens-star-glo/"},
+  {name:"So Famous",tier:"\u2605 Elite",disc:"Barrel Racing, Team Roping",fee:"$1,500",feeInt:1500,lte:"$12,605",lteInt:12605,offspring:"\u2014",offspringInt:0,url:"https://valleyequinerepro.com/stallions/so-famous/"},
+  {name:"The Kingsmen",tier:"\u2605 Elite",disc:"Barrel Racing, Team Roping",fee:"$1,250",feeInt:1250,lte:"\u2014",lteInt:0,offspring:"\u2014",offspringInt:0,url:"https://valleyequinerepro.com/stallions/the-kingsmen/"}
+];
+let _sk='feeInt',_sa=false,_ft='';
+function renderTable(){var rows=CSV_DATA.filter(function(r){return !_ft||r.name.toLowerCase().indexOf(_ft)>-1||r.disc.toLowerCase().indexOf(_ft)>-1||r.tier.toLowerCase().indexOf(_ft)>-1;});rows.sort(function(a,b){var av=a[_sk],bv=b[_sk];if(typeof av==='string'){av=av.toLowerCase();bv=bv.toLowerCase();}return _sa?(av>bv?1:av<bv?-1:0):(av<bv?1:av>bv?-1:0);});document.getElementById('csv-tbody').innerHTML=rows.map(function(r){return '<tr><td><a href="'+r.url+'" target="_blank" rel="noopener" class="csv-name">'+r.name+'</a></td><td><span class="csv-tier '+(r.tier==='★ Elite'?'elite':r.tier==='Proven'?'proven':'rising')+'">'+r.tier+'</span></td><td>'+r.disc+'</td><td class="csv-fee">'+r.fee+'</td><td>'+r.lte+'</td><td>'+r.offspring+'</td></tr>';}).join('');}
+function sortTable(key,el){if(_sk===key)_sa=!_sa;else{_sk=key;_sa=(key==='name'||key==='tier'||key==='disc');}document.querySelectorAll('#csv-table th.sortable').forEach(function(th){th.style.background='';});el.style.background='var(--secondary)';renderTable();}
+function filterTable(){_ft=document.getElementById('csv-search').value.toLowerCase();renderTable();}
+function downloadCSV(){var hdr=['Stallion','Tier','Discipline','2026 Stud Fee','LTE','Offspring Earnings'];var rows=CSV_DATA.map(function(r){return [r.name,r.tier,r.disc,r.fee,r.lte,r.offspring].map(function(v){return '"'+v+'"';}).join(',');});var blob=new Blob([hdr.join(',')+'
+'+rows.join('
+')],{type:'text/csv'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='valley-equine-2026.csv';a.click();}
+renderTable();
+</script>
+<div class="cta-box">
     <h2>Not Sure Which Stallion Fits Your Mare?</h2>
     <p>Enter your mare's discipline, bloodlines, and breeding goals to get AI-ranked recommendations from all 224 stallions across 12 stations.</p>
     <a href="/" class="cta-btn">🔍 Run the AI Matchmaker →</a>
