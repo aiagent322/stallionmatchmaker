@@ -88,6 +88,31 @@ footer{background:var(--primary);color:rgba(255,255,255,0.6);text-align:center;p
 footer a{color:rgba(255,255,255,0.75)}
 footer a:hover{color:#fff}
 
+
+.csv-wrap{margin:0 0 40px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.csv-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:12px 16px;background:var(--bg-alt);border-bottom:1px solid var(--border)}
+.csv-title{font-size:0.82rem;font-weight:700;color:var(--primary)}
+.csv-controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+#csv-search{padding:6px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:0.78rem;width:180px}
+#csv-search:focus{outline:none;border-color:var(--accent)}
+.csv-dl-btn{padding:6px 12px;background:var(--primary);color:#fff;border:none;border-radius:var(--radius);font-size:0.75rem;font-weight:700;cursor:pointer}
+.csv-dl-btn:hover{background:var(--primary-light)}
+.csv-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+#csv-table{width:100%;border-collapse:collapse;font-size:0.78rem}
+#csv-table th{padding:8px 12px;text-align:left;background:var(--primary);color:#fff;white-space:nowrap;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
+#csv-table th.sortable{cursor:pointer;user-select:none}
+#csv-table th.sortable:hover{background:var(--primary-light)}
+.sort-icon{opacity:0.55;font-size:0.65rem;margin-left:3px}
+#csv-table td{padding:7px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+#csv-table tr:last-child td{border-bottom:none}
+#csv-table tr:hover td{background:var(--bg-alt)}
+.csv-name{font-weight:600;color:var(--primary);text-decoration:none}
+.csv-name:hover{color:var(--secondary);text-decoration:underline}
+.csv-fee{font-weight:800;color:var(--gold)}
+.csv-tier{font-size:0.65rem;font-weight:700;padding:2px 7px;border-radius:8px;white-space:nowrap}
+.csv-tier.elite{background:#fef3c7;color:#92400e}
+.csv-tier.proven{background:#dbeafe;color:#1e40af}
+.csv-tier.rising{background:#d1fae5;color:#065f46}
 </style>
 </head>
 <body>
@@ -373,7 +398,59 @@ footer a:hover{color:#fff}
   </div>
   <div class="sc-footer"><a href="https://www.soloselecthorses.com/stallions/this-catt-shines" target="_blank" rel="noopener" class="sc-btn gold">View at Solo Select ↗</a><a href="/" class="sc-btn outline">Find My Match →</a></div>
 </article></div>
-  <div class="cta-box">
+  
+<div class="csv-wrap">
+  <div class="csv-header">
+    <span class="csv-title">📋 2026 Stallion Roster — Quick Reference</span>
+    <div class="csv-controls">
+      <input type="text" id="csv-search" placeholder="Search…" oninput="filterTable()">
+      <button onclick="downloadCSV()" class="csv-dl-btn">⬇ Download CSV</button>
+    </div>
+  </div>
+  <div class="csv-table-wrap">
+    <table id="csv-table">
+      <thead><tr>
+        <th class="sortable" onclick="sortTable('name',this)">Stallion <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('tier',this)">Tier <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('disc',this)">Discipline <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('feeInt',this)">Stud Fee <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('lteInt',this)">LTE <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('offspringInt',this)">Offspring <span class="sort-icon">⇅</span></th>
+      </tr></thead>
+      <tbody id="csv-tbody"></tbody>
+    </table>
+  </div>
+</div>
+<script>
+const CSV_DATA=[
+  {name:"Meteles Cat",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$3,200",feeInt:3200,lte:"$437,016",lteInt:437016,offspring:"$3.3M",offspringInt:3262972,url:"https://www.soloselecthorses.com/stallions/meteles-cat"},
+  {name:"Boons Reflections",tier:"Rising",disc:"Cutting, Cow Horse",fee:"$2,000",feeInt:2000,lte:"$76,563",lteInt:76563,offspring:"\u2014",offspringInt:0,url:"https://www.soloselecthorses.com/stallions/boons-reflections"},
+  {name:"CR Get Tuff",tier:"Rising",disc:"Cutting, Cow Horse",fee:"$1,750",feeInt:1750,lte:"$9,532",lteInt:9532,offspring:"\u2014",offspringInt:0,url:"https://www.soloselecthorses.com/stallions/cr-get-tuff"},
+  {name:"Hesa Dual Bet",tier:"Proven",disc:"Cow Horse",fee:"$1,800",feeInt:1800,lte:"$212,844",lteInt:212844,offspring:"\u2014",offspringInt:0,url:"https://www.soloselecthorses.com/stallions/hesa-dual-bet"},
+  {name:"LBR Hangem",tier:"\u2605 Elite",disc:"Cutting",fee:"$4,000",feeInt:4000,lte:"$485,387",lteInt:485387,offspring:"\u2014",offspringInt:0,url:"https://www.soloselecthorses.com/stallions/lbr-hangem"},
+  {name:"Metallic Cattack",tier:"Rising",disc:"Cutting, Cow Horse",fee:"$2,000",feeInt:2000,lte:"$30,000",lteInt:30000,offspring:"\u2014",offspringInt:0,url:"https://www.soloselecthorses.com/stallions/metallic-cattack"},
+  {name:"Metallics MVP",tier:"Proven",disc:"Cutting",fee:"$5,000",feeInt:5000,lte:"$345,159",lteInt:345159,offspring:"\u2014",offspringInt:0,url:"https://www.soloselecthorses.com/stallions/metallics-mvp"},
+  {name:"Once In A Blu Boon",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$7,500",feeInt:7500,lte:"$319,002",lteInt:319002,offspring:"$16.0M",offspringInt:16000000,url:"https://www.soloselecthorses.com/stallions/once-in-a-blu-boon"},
+  {name:"Plain Catty",tier:"Proven",disc:"Cow Horse",fee:"$2,000",feeInt:2000,lte:"$196,245",lteInt:196245,offspring:"\u2014",offspringInt:0,url:"https://www.soloselecthorses.com/stallions/plain-catty"},
+  {name:"Pride And Joyy",tier:"\u2605 Elite",disc:"roping",fee:"$5,000",feeInt:5000,lte:"$435,987",lteInt:435987,offspring:"\u2014",offspringInt:0,url:"https://www.soloselecthorses.com/stallions/pride-and-joyy"},
+  {name:"The Animal",tier:"Proven",disc:"Cutting",fee:"$2,000",feeInt:2000,lte:"$260,123",lteInt:260123,offspring:"\u2014",offspringInt:0,url:"https://www.soloselecthorses.com/stallions/the-animal"},
+  {name:"The Darkk Side",tier:"\u2605 Elite",disc:"roping",fee:"Contact",feeInt:0,lte:"$250,072",lteInt:250072,offspring:"\u2014",offspringInt:0,url:"https://www.soloselecthorses.com/stallions/the-darkk-side"},
+  {name:"The Firemen",tier:"\u2605 Elite",disc:"Reining",fee:"$3,000",feeInt:3000,lte:"$496,678",lteInt:496678,offspring:"\u2014",offspringInt:0,url:"https://www.soloselecthorses.com/stallions/the-firemen"},
+  {name:"Third Edge",tier:"\u2605 Elite",disc:"Cutting",fee:"$6,000",feeInt:6000,lte:"$342,528",lteInt:342528,offspring:"\u2014",offspringInt:0,url:"https://www.soloselecthorses.com/stallions/third-edge"},
+  {name:"This Catt Shines",tier:"Rising",disc:"roping",fee:"$1,500",feeInt:1500,lte:"\u2014",lteInt:0,offspring:"\u2014",offspringInt:0,url:"https://www.soloselecthorses.com/stallions/this-catt-shines"},
+  {name:"Time To Glo",tier:"Proven",disc:"roping",fee:"$3,500",feeInt:3500,lte:"$308,354",lteInt:308354,offspring:"\u2014",offspringInt:0,url:"https://www.soloselecthorses.com/stallions/time-to-glo"},
+  {name:"Woody Be Tuff",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$6,500",feeInt:6500,lte:"$351,063",lteInt:351063,offspring:"$15.3M",offspringInt:15300000,url:"https://www.soloselecthorses.com/stallions/woody-be-tuff"}
+];
+let _sk='feeInt',_sa=false,_ft='';
+function renderTable(){var rows=CSV_DATA.filter(function(r){return !_ft||r.name.toLowerCase().indexOf(_ft)>-1||r.disc.toLowerCase().indexOf(_ft)>-1||r.tier.toLowerCase().indexOf(_ft)>-1;});rows.sort(function(a,b){var av=a[_sk],bv=b[_sk];if(typeof av==='string'){av=av.toLowerCase();bv=bv.toLowerCase();}return _sa?(av>bv?1:av<bv?-1:0):(av<bv?1:av>bv?-1:0);});document.getElementById('csv-tbody').innerHTML=rows.map(function(r){return '<tr><td><a href="'+r.url+'" target="_blank" rel="noopener" class="csv-name">'+r.name+'</a></td><td><span class="csv-tier '+(r.tier==='★ Elite'?'elite':r.tier==='Proven'?'proven':'rising')+'">'+r.tier+'</span></td><td>'+r.disc+'</td><td class="csv-fee">'+r.fee+'</td><td>'+r.lte+'</td><td>'+r.offspring+'</td></tr>';}).join('');}
+function sortTable(key,el){if(_sk===key)_sa=!_sa;else{_sk=key;_sa=(key==='name'||key==='tier'||key==='disc');}document.querySelectorAll('#csv-table th.sortable').forEach(function(th){th.style.background='';});el.style.background='var(--secondary)';renderTable();}
+function filterTable(){_ft=document.getElementById('csv-search').value.toLowerCase();renderTable();}
+function downloadCSV(){var hdr=['Stallion','Tier','Discipline','2026 Stud Fee','LTE','Offspring Earnings'];var rows=CSV_DATA.map(function(r){return [r.name,r.tier,r.disc,r.fee,r.lte,r.offspring].map(function(v){return '"'+v+'"';}).join(',');});var blob=new Blob([hdr.join(',')+'
+'+rows.join('
+')],{type:'text/csv'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='solo-select-2026.csv';a.click();}
+renderTable();
+</script>
+<div class="cta-box">
     <h2>Not Sure Which Stallion Fits Your Mare?</h2>
     <p>Enter your mare's discipline, bloodlines, and breeding goals to get AI-ranked recommendations from all 224 stallions across 12 stations.</p>
     <a href="/" class="cta-btn">🔍 Run the AI Matchmaker →</a>
