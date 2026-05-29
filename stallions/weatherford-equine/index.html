@@ -88,6 +88,31 @@ footer{background:var(--primary);color:rgba(255,255,255,0.6);text-align:center;p
 footer a{color:rgba(255,255,255,0.75)}
 footer a:hover{color:#fff}
 
+
+.csv-wrap{margin:0 0 40px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.csv-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:12px 16px;background:var(--bg-alt);border-bottom:1px solid var(--border)}
+.csv-title{font-size:0.82rem;font-weight:700;color:var(--primary)}
+.csv-controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+#csv-search{padding:6px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:0.78rem;width:180px}
+#csv-search:focus{outline:none;border-color:var(--accent)}
+.csv-dl-btn{padding:6px 12px;background:var(--primary);color:#fff;border:none;border-radius:var(--radius);font-size:0.75rem;font-weight:700;cursor:pointer}
+.csv-dl-btn:hover{background:var(--primary-light)}
+.csv-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+#csv-table{width:100%;border-collapse:collapse;font-size:0.78rem}
+#csv-table th{padding:8px 12px;text-align:left;background:var(--primary);color:#fff;white-space:nowrap;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
+#csv-table th.sortable{cursor:pointer;user-select:none}
+#csv-table th.sortable:hover{background:var(--primary-light)}
+.sort-icon{opacity:0.55;font-size:0.65rem;margin-left:3px}
+#csv-table td{padding:7px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+#csv-table tr:last-child td{border-bottom:none}
+#csv-table tr:hover td{background:var(--bg-alt)}
+.csv-name{font-weight:600;color:var(--primary);text-decoration:none}
+.csv-name:hover{color:var(--secondary);text-decoration:underline}
+.csv-fee{font-weight:800;color:var(--gold)}
+.csv-tier{font-size:0.65rem;font-weight:700;padding:2px 7px;border-radius:8px;white-space:nowrap}
+.csv-tier.elite{background:#fef3c7;color:#92400e}
+.csv-tier.proven{background:#dbeafe;color:#1e40af}
+.csv-tier.rising{background:#d1fae5;color:#065f46}
 </style>
 </head>
 <body>
@@ -553,7 +578,70 @@ footer a:hover{color:#fff}
   </div>
   <div class="sc-footer"><a href="https://weatherfordequine.com/spurs-black-label/" target="_blank" rel="noopener" class="sc-btn gold">View at Weatherford Equine ↗</a><a href="/" class="sc-btn outline">Find My Match →</a></div>
 </article></div>
-  <div class="cta-box">
+  
+<div class="csv-wrap">
+  <div class="csv-header">
+    <span class="csv-title">📋 2026 Stallion Roster — Quick Reference</span>
+    <div class="csv-controls">
+      <input type="text" id="csv-search" placeholder="Search…" oninput="filterTable()">
+      <button onclick="downloadCSV()" class="csv-dl-btn">⬇ Download CSV</button>
+    </div>
+  </div>
+  <div class="csv-table-wrap">
+    <table id="csv-table">
+      <thead><tr>
+        <th class="sortable" onclick="sortTable('name',this)">Stallion <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('tier',this)">Tier <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('disc',this)">Discipline <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('feeInt',this)">Stud Fee <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('lteInt',this)">LTE <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('offspringInt',this)">Offspring <span class="sort-icon">⇅</span></th>
+      </tr></thead>
+      <tbody id="csv-tbody"></tbody>
+    </table>
+  </div>
+</div>
+<script>
+const CSV_DATA=[
+  {name:"Catty Hawk",tier:"Proven",disc:"Cutting, Cow Horse",fee:"$1,500",feeInt:1500,lte:"$240,297",lteInt:240297,offspring:"$4.3M",offspringInt:4346000,url:"https://weatherfordequine.com/catty-hawk/"},
+  {name:"CD Diamond",tier:"\u2605 Elite",disc:"Cow Horse, Cutting",fee:"$4,250",feeInt:4250,lte:"$153,320",lteInt:153320,offspring:"\u2014",offspringInt:0,url:"https://weatherfordequine.com/cd-diamond/"},
+  {name:"Copy Cat",tier:"Proven",disc:"Cutting",fee:"$2,000",feeInt:2000,lte:"\u2014",lteInt:0,offspring:"\u2014",offspringInt:0,url:"https://weatherfordequine.com/copy-cat/"},
+  {name:"Cowboys Cartel",tier:"Proven",disc:"Barrel Racing",fee:"$1,500",feeInt:1500,lte:"$235,000",lteInt:235000,offspring:"\u2014",offspringInt:0,url:"https://weatherfordequine.com/cowboys-cartel/"},
+  {name:"Dual R Smokin",tier:"Proven",disc:"Cutting, Cow Horse",fee:"$2,000",feeInt:2000,lte:"$227,727",lteInt:227727,offspring:"$1.5M",offspringInt:1537282,url:"https://weatherfordequine.com/dual-r-smokin/"},
+  {name:"Graceful Smart Cat",tier:"Proven",disc:"Cow Horse, Reining",fee:"$2,000",feeInt:2000,lte:"$110,000",lteInt:110000,offspring:"\u2014",offspringInt:0,url:"https://weatherfordequine.com/graceful-smart-cat/"},
+  {name:"Hankerelse",tier:"Rising",disc:"Barrel Racing",fee:"$1,200",feeInt:1200,lte:"\u2014",lteInt:0,offspring:"\u2014",offspringInt:0,url:"https://weatherfordequine.com/hankerelse/"},
+  {name:"HiCaliber Cat",tier:"Proven",disc:"Cow Horse, Cutting",fee:"$1,825",feeInt:1825,lte:"$162,000",lteInt:162000,offspring:"\u2014",offspringInt:0,url:"https://weatherfordequine.com/hicaliber-cat/"},
+  {name:"Huerfano River Blue",tier:"Rising",disc:"Cow Horse, Ranch Riding, Team Roping",fee:"$1,200",feeInt:1200,lte:"$4,006",lteInt:4006,offspring:"$15,600",offspringInt:15600,url:"https://weatherfordequine.com/huerfano-river-blue/"},
+  {name:"Jobu",tier:"Proven",disc:"Barrel Racing, Reining, Ranch Riding",fee:"$1,500",feeInt:1500,lte:"$12,000",lteInt:12000,offspring:"\u2014",offspringInt:0,url:"https://weatherfordequine.com/jobu/"},
+  {name:"Johnnys Lil Cash",tier:"Proven",disc:"Cow Horse, Team Roping, Ranch Riding",fee:"$1,500",feeInt:1500,lte:"$99,000",lteInt:99000,offspring:"\u2014",offspringInt:0,url:"https://weatherfordequine.com/johnnys-lil-cash/"},
+  {name:"Magnetik Playboy",tier:"Proven",disc:"Cutting",fee:"$2,000",feeInt:2000,lte:"$63,483",lteInt:63483,offspring:"\u2014",offspringInt:0,url:"https://weatherfordequine.com/magnetik-playboy/"},
+  {name:"Major Bonanza",tier:"Proven",disc:"Cow Horse, Cutting, Reining, Team Roping, Ranch Riding",fee:"$1,500",feeInt:1500,lte:"$235,000",lteInt:235000,offspring:"$3.3M",offspringInt:3300000,url:"https://weatherfordequine.com/major-bonanza/"},
+  {name:"Man Card",tier:"Rising",disc:"Cutting",fee:"$1,000",feeInt:1000,lte:"$10,000",lteInt:10000,offspring:"\u2014",offspringInt:0,url:"https://weatherfordequine.com/man-card/"},
+  {name:"Moms Stilish Cat",tier:"Rising",disc:"Cutting, Cow Horse",fee:"$1,000",feeInt:1000,lte:"$286,000",lteInt:286000,offspring:"\u2014",offspringInt:0,url:"https://weatherfordequine.com/moms-stilish-cat/"},
+  {name:"Paddys CD Olena",tier:"Rising",disc:"Team Roping, Cow Horse, Ranch Riding",fee:"$1,000",feeInt:1000,lte:"$100,000",lteInt:100000,offspring:"\u2014",offspringInt:0,url:"https://weatherfordequine.com/paddys-cd-olena/"},
+  {name:"Pepto Bluelena",tier:"Proven",disc:"Team Roping",fee:"$1,500",feeInt:1500,lte:"\u2014",lteInt:0,offspring:"\u2014",offspringInt:0,url:"https://weatherfordequine.com/pepto-bluelena/"},
+  {name:"Sanctus",tier:"\u2605 Elite",disc:"Cutting",fee:"$6,000",feeInt:6000,lte:"$387,873",lteInt:387873,offspring:"\u2014",offspringInt:0,url:"https://weatherfordequine.com/sanctus/"},
+  {name:"Shiners Diamonds",tier:"Rising",disc:"Team Roping, Cow Horse",fee:"$1,200",feeInt:1200,lte:"$20,000",lteInt:20000,offspring:"\u2014",offspringInt:0,url:"https://weatherfordequine.com/shiners-diamonds/"},
+  {name:"Shiney Outlaw",tier:"\u2605 Elite",disc:"Cow Horse, Reining, Ranch Riding",fee:"$3,000",feeInt:3000,lte:"$222,500",lteInt:222500,offspring:"\u2014",offspringInt:0,url:"https://weatherfordequine.com/shiney-outlaw/"},
+  {name:"SJR Diamond Mist",tier:"\u2605 Elite",disc:"Cow Horse, Cutting",fee:"$3,500",feeInt:3500,lte:"$179,883",lteInt:179883,offspring:"\u2014",offspringInt:0,url:"https://weatherfordequine.com/sjr-diamond-mist/"},
+  {name:"SJR Talkin Diamonds",tier:"\u2605 Elite",disc:"Cow Horse, Cutting",fee:"$3,000",feeInt:3000,lte:"$203,712",lteInt:203712,offspring:"\u2014",offspringInt:0,url:"https://weatherfordequine.com/sjr-talkin-diamonds/"},
+  {name:"Slick Designer",tier:"Proven",disc:"Barrel Racing",fee:"$2,000",feeInt:2000,lte:"$83,000",lteInt:83000,offspring:"\u2014",offspringInt:0,url:"https://weatherfordequine.com/slick-designer/"},
+  {name:"Smart Little Lena",tier:"Proven",disc:"Cutting, Cow Horse",fee:"$2,000",feeInt:2000,lte:"$743,275",lteInt:743275,offspring:"$42.3M",offspringInt:42300000,url:"https://weatherfordequine.com/smart-little-lena/"},
+  {name:"Smooth As A Cat",tier:"Proven",disc:"Cutting, Cow Horse",fee:"$2,500",feeInt:2500,lte:"$500,037",lteInt:500037,offspring:"$38.0M",offspringInt:38000000,url:"https://weatherfordequine.com/smooth-as-a-cat/"},
+  {name:"Son Of Zorro",tier:"Proven",disc:"Barrel Racing",fee:"$2,000",feeInt:2000,lte:"\u2014",lteInt:0,offspring:"\u2014",offspringInt:0,url:"https://weatherfordequine.com/son-of-zorro/"},
+  {name:"Spurs Black Label",tier:"Rising",disc:"Cutting",fee:"$1,250",feeInt:1250,lte:"$45,394",lteInt:45394,offspring:"\u2014",offspringInt:0,url:"https://weatherfordequine.com/spurs-black-label/"},
+  {name:"The Notorious B I G",tier:"\u2605 Elite",disc:"Team Roping, Cow Horse",fee:"$3,800",feeInt:3800,lte:"$110,000",lteInt:110000,offspring:"\u2014",offspringInt:0,url:"https://weatherfordequine.com/the-notorious-b-i-g/"}
+];
+let _sk='feeInt',_sa=false,_ft='';
+function renderTable(){var rows=CSV_DATA.filter(function(r){return !_ft||r.name.toLowerCase().indexOf(_ft)>-1||r.disc.toLowerCase().indexOf(_ft)>-1||r.tier.toLowerCase().indexOf(_ft)>-1;});rows.sort(function(a,b){var av=a[_sk],bv=b[_sk];if(typeof av==='string'){av=av.toLowerCase();bv=bv.toLowerCase();}return _sa?(av>bv?1:av<bv?-1:0):(av<bv?1:av>bv?-1:0);});document.getElementById('csv-tbody').innerHTML=rows.map(function(r){return '<tr><td><a href="'+r.url+'" target="_blank" rel="noopener" class="csv-name">'+r.name+'</a></td><td><span class="csv-tier '+(r.tier==='★ Elite'?'elite':r.tier==='Proven'?'proven':'rising')+'">'+r.tier+'</span></td><td>'+r.disc+'</td><td class="csv-fee">'+r.fee+'</td><td>'+r.lte+'</td><td>'+r.offspring+'</td></tr>';}).join('');}
+function sortTable(key,el){if(_sk===key)_sa=!_sa;else{_sk=key;_sa=(key==='name'||key==='tier'||key==='disc');}document.querySelectorAll('#csv-table th.sortable').forEach(function(th){th.style.background='';});el.style.background='var(--secondary)';renderTable();}
+function filterTable(){_ft=document.getElementById('csv-search').value.toLowerCase();renderTable();}
+function downloadCSV(){var hdr=['Stallion','Tier','Discipline','2026 Stud Fee','LTE','Offspring Earnings'];var rows=CSV_DATA.map(function(r){return [r.name,r.tier,r.disc,r.fee,r.lte,r.offspring].map(function(v){return '"'+v+'"';}).join(',');});var blob=new Blob([hdr.join(',')+'
+'+rows.join('
+')],{type:'text/csv'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='weatherford-equine-2026.csv';a.click();}
+renderTable();
+</script>
+<div class="cta-box">
     <h2>Not Sure Which Stallion Fits Your Mare?</h2>
     <p>Enter your mare's discipline, bloodlines, and breeding goals to get AI-ranked recommendations from all 224 stallions across 12 stations.</p>
     <a href="/" class="cta-btn">🔍 Run the AI Matchmaker →</a>
