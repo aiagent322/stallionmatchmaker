@@ -88,6 +88,31 @@ footer{background:var(--primary);color:rgba(255,255,255,0.6);text-align:center;p
 footer a{color:rgba(255,255,255,0.75)}
 footer a:hover{color:#fff}
 
+
+.csv-wrap{margin:0 0 40px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.csv-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:12px 16px;background:var(--bg-alt);border-bottom:1px solid var(--border)}
+.csv-title{font-size:0.82rem;font-weight:700;color:var(--primary)}
+.csv-controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+#csv-search{padding:6px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:0.78rem;width:180px}
+#csv-search:focus{outline:none;border-color:var(--accent)}
+.csv-dl-btn{padding:6px 12px;background:var(--primary);color:#fff;border:none;border-radius:var(--radius);font-size:0.75rem;font-weight:700;cursor:pointer}
+.csv-dl-btn:hover{background:var(--primary-light)}
+.csv-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+#csv-table{width:100%;border-collapse:collapse;font-size:0.78rem}
+#csv-table th{padding:8px 12px;text-align:left;background:var(--primary);color:#fff;white-space:nowrap;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
+#csv-table th.sortable{cursor:pointer;user-select:none}
+#csv-table th.sortable:hover{background:var(--primary-light)}
+.sort-icon{opacity:0.55;font-size:0.65rem;margin-left:3px}
+#csv-table td{padding:7px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+#csv-table tr:last-child td{border-bottom:none}
+#csv-table tr:hover td{background:var(--bg-alt)}
+.csv-name{font-weight:600;color:var(--primary);text-decoration:none}
+.csv-name:hover{color:var(--secondary);text-decoration:underline}
+.csv-fee{font-weight:800;color:var(--gold)}
+.csv-tier{font-size:0.65rem;font-weight:700;padding:2px 7px;border-radius:8px;white-space:nowrap}
+.csv-tier.elite{background:#fef3c7;color:#92400e}
+.csv-tier.proven{background:#dbeafe;color:#1e40af}
+.csv-tier.rising{background:#d1fae5;color:#065f46}
 </style>
 </head>
 <body>
@@ -148,7 +173,44 @@ footer a:hover{color:#fff}
   </div>
   <div class="sc-footer"><a href="https://www.eeranches.com/resident-stallions" target="_blank" rel="noopener" class="sc-btn gold">View at EE Ranches ↗</a><a href="/" class="sc-btn outline">Find My Match →</a></div>
 </article></div>
-  <div class="cta-box">
+  
+<div class="csv-wrap">
+  <div class="csv-header">
+    <span class="csv-title">📋 2026 Stallion Roster — Quick Reference</span>
+    <div class="csv-controls">
+      <input type="text" id="csv-search" placeholder="Search…" oninput="filterTable()">
+      <button onclick="downloadCSV()" class="csv-dl-btn">⬇ Download CSV</button>
+    </div>
+  </div>
+  <div class="csv-table-wrap">
+    <table id="csv-table">
+      <thead><tr>
+        <th class="sortable" onclick="sortTable('name',this)">Stallion <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('tier',this)">Tier <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('disc',this)">Discipline <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('feeInt',this)">Stud Fee <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('lteInt',this)">LTE <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('offspringInt',this)">Offspring <span class="sort-icon">⇅</span></th>
+      </tr></thead>
+      <tbody id="csv-tbody"></tbody>
+    </table>
+  </div>
+</div>
+<script>
+const CSV_DATA=[
+  {name:"Cat Ichi",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$3,150",feeInt:3150,lte:"$306,000",lteInt:306000,offspring:"$6.0M",offspringInt:6000000,url:"https://www.eeranches.com/cat-ichi"},
+  {name:"Taggline",tier:"Proven",disc:"Cutting, Cow Horse",fee:"$1,850",feeInt:1850,lte:"$56,800",lteInt:56800,offspring:"\u2014",offspringInt:0,url:"https://www.eeranches.com/resident-stallions"}
+];
+let _sk='feeInt',_sa=false,_ft='';
+function renderTable(){var rows=CSV_DATA.filter(function(r){return !_ft||r.name.toLowerCase().indexOf(_ft)>-1||r.disc.toLowerCase().indexOf(_ft)>-1||r.tier.toLowerCase().indexOf(_ft)>-1;});rows.sort(function(a,b){var av=a[_sk],bv=b[_sk];if(typeof av==='string'){av=av.toLowerCase();bv=bv.toLowerCase();}return _sa?(av>bv?1:av<bv?-1:0):(av<bv?1:av>bv?-1:0);});document.getElementById('csv-tbody').innerHTML=rows.map(function(r){return '<tr><td><a href="'+r.url+'" target="_blank" rel="noopener" class="csv-name">'+r.name+'</a></td><td><span class="csv-tier '+(r.tier==='★ Elite'?'elite':r.tier==='Proven'?'proven':'rising')+'">'+r.tier+'</span></td><td>'+r.disc+'</td><td class="csv-fee">'+r.fee+'</td><td>'+r.lte+'</td><td>'+r.offspring+'</td></tr>';}).join('');}
+function sortTable(key,el){if(_sk===key)_sa=!_sa;else{_sk=key;_sa=(key==='name'||key==='tier'||key==='disc');}document.querySelectorAll('#csv-table th.sortable').forEach(function(th){th.style.background='';});el.style.background='var(--secondary)';renderTable();}
+function filterTable(){_ft=document.getElementById('csv-search').value.toLowerCase();renderTable();}
+function downloadCSV(){var hdr=['Stallion','Tier','Discipline','2026 Stud Fee','LTE','Offspring Earnings'];var rows=CSV_DATA.map(function(r){return [r.name,r.tier,r.disc,r.fee,r.lte,r.offspring].map(function(v){return '"'+v+'"';}).join(',');});var blob=new Blob([hdr.join(',')+'
+'+rows.join('
+')],{type:'text/csv'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='ee-ranches-2026.csv';a.click();}
+renderTable();
+</script>
+<div class="cta-box">
     <h2>Not Sure Which Stallion Fits Your Mare?</h2>
     <p>Enter your mare's discipline, bloodlines, and breeding goals to get AI-ranked recommendations from all 224 stallions across 12 stations.</p>
     <a href="/" class="cta-btn">🔍 Run the AI Matchmaker →</a>
