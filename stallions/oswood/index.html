@@ -88,6 +88,31 @@ footer{background:var(--primary);color:rgba(255,255,255,0.6);text-align:center;p
 footer a{color:rgba(255,255,255,0.75)}
 footer a:hover{color:#fff}
 
+
+.csv-wrap{margin:0 0 40px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.csv-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:12px 16px;background:var(--bg-alt);border-bottom:1px solid var(--border)}
+.csv-title{font-size:0.82rem;font-weight:700;color:var(--primary)}
+.csv-controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+#csv-search{padding:6px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:0.78rem;width:180px}
+#csv-search:focus{outline:none;border-color:var(--accent)}
+.csv-dl-btn{padding:6px 12px;background:var(--primary);color:#fff;border:none;border-radius:var(--radius);font-size:0.75rem;font-weight:700;cursor:pointer}
+.csv-dl-btn:hover{background:var(--primary-light)}
+.csv-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+#csv-table{width:100%;border-collapse:collapse;font-size:0.78rem}
+#csv-table th{padding:8px 12px;text-align:left;background:var(--primary);color:#fff;white-space:nowrap;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
+#csv-table th.sortable{cursor:pointer;user-select:none}
+#csv-table th.sortable:hover{background:var(--primary-light)}
+.sort-icon{opacity:0.55;font-size:0.65rem;margin-left:3px}
+#csv-table td{padding:7px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+#csv-table tr:last-child td{border-bottom:none}
+#csv-table tr:hover td{background:var(--bg-alt)}
+.csv-name{font-weight:600;color:var(--primary);text-decoration:none}
+.csv-name:hover{color:var(--secondary);text-decoration:underline}
+.csv-fee{font-weight:800;color:var(--gold)}
+.csv-tier{font-size:0.65rem;font-weight:700;padding:2px 7px;border-radius:8px;white-space:nowrap}
+.csv-tier.elite{background:#fef3c7;color:#92400e}
+.csv-tier.proven{background:#dbeafe;color:#1e40af}
+.csv-tier.rising{background:#d1fae5;color:#065f46}
 </style>
 </head>
 <body>
@@ -673,7 +698,79 @@ footer a:hover{color:#fff}
   </div>
   <div class="sc-footer"><a href="https://oswoodstallionstation.com/snip-o-lution" target="_blank" rel="noopener" class="sc-btn gold">View at Oswood ↗</a><a href="/" class="sc-btn outline">Find My Match →</a></div>
 </article></div>
-  <div class="cta-box">
+  
+<div class="csv-wrap">
+  <div class="csv-header">
+    <span class="csv-title">📋 2026 Stallion Roster — Quick Reference</span>
+    <div class="csv-controls">
+      <input type="text" id="csv-search" placeholder="Search…" oninput="filterTable()">
+      <button onclick="downloadCSV()" class="csv-dl-btn">⬇ Download CSV</button>
+    </div>
+  </div>
+  <div class="csv-table-wrap">
+    <table id="csv-table">
+      <thead><tr>
+        <th class="sortable" onclick="sortTable('name',this)">Stallion <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('tier',this)">Tier <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('disc',this)">Discipline <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('feeInt',this)">Stud Fee <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('lteInt',this)">LTE <span class="sort-icon">⇅</span></th>
+        <th class="sortable" onclick="sortTable('offspringInt',this)">Offspring <span class="sort-icon">⇅</span></th>
+      </tr></thead>
+      <tbody id="csv-tbody"></tbody>
+    </table>
+  </div>
+</div>
+<script>
+const CSV_DATA=[
+  {name:"Gunnatrashya",tier:"\u2605 Elite",disc:"Reining",fee:"$7,000",feeInt:7000,lte:"$236,457",lteInt:236457,offspring:"$18.0M",offspringInt:18000000,url:"https://oswoodstallionstation.com/gunnatrashya"},
+  {name:"Walla Walla Whiz",tier:"\u2605 Elite",disc:"Reining",fee:"$3,250",feeInt:3250,lte:"$187,820",lteInt:187820,offspring:"$5.0M",offspringInt:5000000,url:"https://oswoodstallionstation.com/walla-walla-whiz"},
+  {name:"Spooks Gotta Whiz",tier:"\u2605 Elite",disc:"Reining",fee:"$8,500",feeInt:8500,lte:"$346,715",lteInt:346715,offspring:"$14.0M",offspringInt:14000000,url:"https://oswoodstallionstation.com/spooks-gotta-whiz"},
+  {name:"Americasnexttopgun",tier:"Proven",disc:"Reining",fee:"$4,500",feeInt:4500,lte:"$425,893",lteInt:425893,offspring:"$718,000",offspringInt:718000,url:"https://oswoodstallionstation.com/americasnexttopgun"},
+  {name:"Ara Rebel King",tier:"Proven",disc:"Cutting, Cow Horse",fee:"$2,000",feeInt:2000,lte:"$315,922",lteInt:315922,offspring:"\u2014",offspringInt:0,url:"https://oswoodstallionstation.com/ara-rebel-king"},
+  {name:"Bet He Sparks",tier:"Proven",disc:"Cutting, Cow Horse",fee:"$3,000",feeInt:3000,lte:"$308,539",lteInt:308539,offspring:"\u2014",offspringInt:0,url:"https://oswoodstallionstation.com/bet-he-sparks"},
+  {name:"Bet Hes Blu",tier:"Proven",disc:"Cutting, Cow Horse",fee:"$1,800",feeInt:1800,lte:"$72,025",lteInt:72025,offspring:"\u2014",offspringInt:0,url:"https://oswoodstallionstation.com/bet-hes-blu"},
+  {name:"Bet Hesa Boon",tier:"Value",disc:"Cow Horse",fee:"$3,000",feeInt:3000,lte:"$155,457",lteInt:155457,offspring:"$408,908",offspringInt:408908,url:"https://oswoodstallionstation.com/bet-hesa-boon"},
+  {name:"Colonels Dancing Gun",tier:"Proven",disc:"Reining",fee:"$1,125",feeInt:1125,lte:"$249,726",lteInt:249726,offspring:"\u2014",offspringInt:0,url:"https://oswoodstallionstation.com/colonels-dancing-gun"},
+  {name:"Custom Dreams",tier:"Proven",disc:"Reining",fee:"$3,000",feeInt:3000,lte:"$349,883",lteInt:349883,offspring:"\u2014",offspringInt:0,url:"https://oswoodstallionstation.com/custom-dreams"},
+  {name:"Customize My Dream",tier:"Proven",disc:"Reining",fee:"$2,000",feeInt:2000,lte:"$482,591",lteInt:482591,offspring:"\u2014",offspringInt:0,url:"https://oswoodstallionstation.com/customize-my-dream"},
+  {name:"Electric Snow",tier:"Proven",disc:"Reining",fee:"$1,800",feeInt:1800,lte:"$100,637",lteInt:100637,offspring:"$693,723",offspringInt:693723,url:"https://oswoodstallionstation.com/electric-snow"},
+  {name:"Down Right Amazing",tier:"Proven",disc:"Reining",fee:"$3,500",feeInt:3500,lte:"$1,050,409",lteInt:1050409,offspring:"\u2014",offspringInt:0,url:"https://oswoodstallionstation.com/down-right-amazing"},
+  {name:"Snip O Lution",tier:"Value",disc:"Reining",fee:"$1,500",feeInt:1500,lte:"$109,050",lteInt:109050,offspring:"$426,556",offspringInt:426556,url:"https://oswoodstallionstation.com/snip-o-lution"},
+  {name:"One Time Pepto",tier:"\u2605 Elite",disc:"Cutting",fee:"$4,250",feeInt:4250,lte:"$331,097",lteInt:331097,offspring:"$24.0M",offspringInt:24000000,url:"https://oswoodstallionstation.com/one-time-pepto"},
+  {name:"Gunnastepya",tier:"Proven",disc:"Reining",fee:"$3,000",feeInt:3000,lte:"$283,898",lteInt:283898,offspring:"\u2014",offspringInt:0,url:"https://oswoodstallionstation.com/gunnastepya"},
+  {name:"ZAK 34",tier:"Proven",disc:"Cow Horse, Ranch Riding",fee:"$3,500",feeInt:3500,lte:"$326,900",lteInt:326900,offspring:"\u2014",offspringInt:0,url:"https://oswoodstallionstation.com/zak-34"},
+  {name:"Docs Hickory",tier:"\u2605 Elite",disc:"Cow Horse",fee:"$5,000",feeInt:5000,lte:"\u2014",lteInt:0,offspring:"$21.0M",offspringInt:21000000,url:"https://oswoodstallionstation.com/docs-hickory"},
+  {name:"Hickory Holly Time",tier:"\u2605 Elite",disc:"Cutting, Cow Horse",fee:"$3,000",feeInt:3000,lte:"$231,025",lteInt:231025,offspring:"$4.0M",offspringInt:4000000,url:"https://oswoodstallionstation.com/hickory-holly-time"},
+  {name:"Flexing Guns N Town",tier:"Proven",disc:"Reining",fee:"$2,000",feeInt:2000,lte:"$614,720",lteInt:614720,offspring:"\u2014",offspringInt:0,url:"https://oswoodstallionstation.com/flexing-guns-n-town"},
+  {name:"Gotta Nifty Gun",tier:"Proven",disc:"Reining",fee:"$1,500",feeInt:1500,lte:"$98,483",lteInt:98483,offspring:"\u2014",offspringInt:0,url:"https://oswoodstallionstation.com/gotta-nifty-gun"},
+  {name:"Jacs Electric Spark",tier:"\u2605 Elite",disc:"Reining",fee:"$5,000",feeInt:5000,lte:"$8,590",lteInt:8590,offspring:"$4.0M",offspringInt:4000000,url:"https://oswoodstallionstation.com/jacs-electric-spark"},
+  {name:"Late Night Stopper",tier:"Proven",disc:"Reining",fee:"$1,500",feeInt:1500,lte:"$101,687",lteInt:101687,offspring:"\u2014",offspringInt:0,url:"https://oswoodstallionstation.com/late-night-stopper"},
+  {name:"Like A Diamond",tier:"Proven",disc:"Reining",fee:"Contact",feeInt:0,lte:"$9,579",lteInt:9579,offspring:"\u2014",offspringInt:0,url:"https://oswoodstallionstation.com/like-a-diamond"},
+  {name:"Lil Catbaloo",tier:"Proven",disc:"Cutting, Cow Horse",fee:"$1,500",feeInt:1500,lte:"$238,871",lteInt:238871,offspring:"\u2014",offspringInt:0,url:"https://oswoodstallionstation.com/lilcatbaloo"},
+  {name:"Lil Joe Cash",tier:"\u2605 Elite",disc:"Reining",fee:"$3,000",feeInt:3000,lte:"$279,268",lteInt:279268,offspring:"$4.0M",offspringInt:4000000,url:"https://oswoodstallionstation.com/lil-joe-cash"},
+  {name:"Metallic Casanova",tier:"Proven",disc:"Cutting, Cow Horse",fee:"$2,000",feeInt:2000,lte:"$210,398",lteInt:210398,offspring:"\u2014",offspringInt:0,url:"https://oswoodstallionstation.com/metallic-casanova"},
+  {name:"Ricato Suave",tier:"Proven",disc:"Cutting, Cow Horse",fee:"$1,500",feeInt:1500,lte:"$275,697",lteInt:275697,offspring:"\u2014",offspringInt:0,url:"https://oswoodstallionstation.com/ricato-suave"},
+  {name:"Rowdy Yankee",tier:"Proven",disc:"Reining",fee:"$1,500",feeInt:1500,lte:"$96,906",lteInt:96906,offspring:"$1.0M",offspringInt:1000000,url:"https://oswoodstallionstation.com/rowdy-yankee"},
+  {name:"Shiners Voodoo",tier:"Proven",disc:"Reining",fee:"$1,825",feeInt:1825,lte:"$75,354",lteInt:75354,offspring:"\u2014",offspringInt:0,url:"https://oswoodstallionstation.com/shiners-voodoo"},
+  {name:"Snap Dun The Bases",tier:"Proven",disc:"Reining",fee:"Contact",feeInt:0,lte:"$128,962",lteInt:128962,offspring:"\u2014",offspringInt:0,url:"https://oswoodstallionstation.com/snap-dun-the-bases"},
+  {name:"Spooks Grand Slam",tier:"Proven",disc:"Reining",fee:"$2,075",feeInt:2075,lte:"$150,458",lteInt:150458,offspring:"\u2014",offspringInt:0,url:"https://oswoodstallionstation.com/spooks-grand-slam"},
+  {name:"Ten Thirty",tier:"Proven",disc:"Reining",fee:"$1,750",feeInt:1750,lte:"$420,195",lteInt:420195,offspring:"\u2014",offspringInt:0,url:"https://oswoodstallionstation.com/ten-thirty"},
+  {name:"The Midnight Train",tier:"Proven",disc:"Cutting, Cow Horse",fee:"$2,000",feeInt:2000,lte:"$133,837",lteInt:133837,offspring:"\u2014",offspringInt:0,url:"https://oswoodstallionstation.com/the-midnight-train"},
+  {name:"Tinker With Dreams",tier:"Proven",disc:"Reining",fee:"$2,000",feeInt:2000,lte:"$432,285",lteInt:432285,offspring:"\u2014",offspringInt:0,url:"https://oswoodstallionstation.com/tinker-with-dreams"},
+  {name:"Walla Walla Dun It",tier:"Proven",disc:"Reining",fee:"$1,000",feeInt:1000,lte:"$4,500",lteInt:4500,offspring:"\u2014",offspringInt:0,url:"https://oswoodstallionstation.com/walla-walla-dun-it"},
+  {name:"Whizkey N Diamonds",tier:"\u2605 Elite",disc:"Reining",fee:"$3,500",feeInt:3500,lte:"$222,619",lteInt:222619,offspring:"$4.0M",offspringInt:4000000,url:"https://oswoodstallionstation.com/whizkey-n-diamonds"}
+];
+let _sk='feeInt',_sa=false,_ft='';
+function renderTable(){var rows=CSV_DATA.filter(function(r){return !_ft||r.name.toLowerCase().indexOf(_ft)>-1||r.disc.toLowerCase().indexOf(_ft)>-1||r.tier.toLowerCase().indexOf(_ft)>-1;});rows.sort(function(a,b){var av=a[_sk],bv=b[_sk];if(typeof av==='string'){av=av.toLowerCase();bv=bv.toLowerCase();}return _sa?(av>bv?1:av<bv?-1:0):(av<bv?1:av>bv?-1:0);});document.getElementById('csv-tbody').innerHTML=rows.map(function(r){return '<tr><td><a href="'+r.url+'" target="_blank" rel="noopener" class="csv-name">'+r.name+'</a></td><td><span class="csv-tier '+(r.tier==='★ Elite'?'elite':r.tier==='Proven'?'proven':'rising')+'">'+r.tier+'</span></td><td>'+r.disc+'</td><td class="csv-fee">'+r.fee+'</td><td>'+r.lte+'</td><td>'+r.offspring+'</td></tr>';}).join('');}
+function sortTable(key,el){if(_sk===key)_sa=!_sa;else{_sk=key;_sa=(key==='name'||key==='tier'||key==='disc');}document.querySelectorAll('#csv-table th.sortable').forEach(function(th){th.style.background='';});el.style.background='var(--secondary)';renderTable();}
+function filterTable(){_ft=document.getElementById('csv-search').value.toLowerCase();renderTable();}
+function downloadCSV(){var hdr=['Stallion','Tier','Discipline','2026 Stud Fee','LTE','Offspring Earnings'];var rows=CSV_DATA.map(function(r){return [r.name,r.tier,r.disc,r.fee,r.lte,r.offspring].map(function(v){return '"'+v+'"';}).join(',');});var blob=new Blob([hdr.join(',')+'
+'+rows.join('
+')],{type:'text/csv'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='oswood-2026.csv';a.click();}
+renderTable();
+</script>
+<div class="cta-box">
     <h2>Not Sure Which Stallion Fits Your Mare?</h2>
     <p>Enter your mare's discipline, bloodlines, and breeding goals to get AI-ranked recommendations from all 224 stallions across 12 stations.</p>
     <a href="/" class="cta-btn">🔍 Run the AI Matchmaker →</a>
